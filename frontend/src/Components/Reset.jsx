@@ -2,9 +2,9 @@ import { useState } from "react";
 import "../Css/reset.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { backendURL } from "../config/backend";
 
 function Reset() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
   const [email, setEmail] = useState("");
   const [BtnLoading, setBtnLoading] = useState(false);
   const [theme, setTheme] = useState(() => {

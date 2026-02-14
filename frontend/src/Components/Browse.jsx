@@ -9,10 +9,9 @@ import LeftPanel from "./LeftPanel";
 import Navbar from "./Navbar";
 import "../Css/theme.css";
 import { useSelector } from "react-redux";
+import { backendURL } from "../config/backend";
 
 function Browse() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000";
   const [thumbnails, setThumbnails] = useState([]);
   const [Titles, setTitles] = useState();
   const [uploader, setUploader] = useState();
@@ -95,6 +94,9 @@ function Browse() {
     const getVideos = async () => {
       try {
         const response = await fetch(`${backendURL}/getvideos`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch videos: ${response.status}`);
+        }
         const {
           thumbnailURLs,
           titles,
@@ -118,7 +120,7 @@ function Browse() {
         setVisibility(Visibility);
         setVideoData(videoData);
       } catch (error) {
-        // console.log(error.message);
+        console.error(error);
       }
     };
 
@@ -225,40 +227,35 @@ function Browse() {
             >
               <div className="uploaded-videos">
                 {Array.from({ length: 16 }).map((_, index) => (
-                  <>
-                    <div className="video-data">
+                  <div className="video-data" key={`browse-skeleton-${index}`}>
+                    <Skeleton
+                      count={1}
+                      width={330}
+                      height={186}
+                      style={{ borderRadius: "12px" }}
+                      className="sk-browse-vid"
+                    />
+                    <div className="channel-basic-data">
                       <Skeleton
-                        key={index}
                         count={1}
-                        width={330}
-                        height={186}
-                        style={{ borderRadius: "12px" }}
-                        className="sk-browse-vid"
+                        width={40}
+                        height={40}
+                        style={{ borderRadius: "100%", marginTop: "40px" }}
+                        className="sk-browse-profile"
                       />
-                      <div className="channel-basic-data">
-                        <Skeleton
-                          key={index}
-                          count={1}
-                          width={40}
-                          height={40}
-                          style={{ borderRadius: "100%", marginTop: "40px" }}
-                          className="sk-browse-profile"
-                        />
-                        <Skeleton
-                          key={index}
-                          count={2}
-                          width={250}
-                          height={15}
-                          style={{
-                            position: "relative",
-                            top: "40px",
-                            left: "15px",
-                          }}
-                          className="sk-browse-title"
-                        />
-                      </div>
+                      <Skeleton
+                        count={2}
+                        width={250}
+                        height={15}
+                        style={{
+                          position: "relative",
+                          top: "40px",
+                          left: "15px",
+                        }}
+                        className="sk-browse-title"
+                      />
                     </div>
-                  </>
+                  </div>
                 ))}
               </div>
             </div>
@@ -334,7 +331,7 @@ function Browse() {
                   return (
                     <div
                       className="video-data"
-                      key={index}
+                      key={VideoID?.[index] || index}
                       style={
                         Visibility[index] === "Public"
                           ? { display: "block" }

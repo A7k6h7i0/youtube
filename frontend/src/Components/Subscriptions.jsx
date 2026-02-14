@@ -9,10 +9,9 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import { backendURL } from "../config/backend";
 
 function Subscriptions() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app";
-  // const backendURL = "http://localhost:3000";
   const [subscriptions, setSubscriptions] = useState([]);
   const [subsVideos, setSubsVideos] = useState([]);
   const [menuClicked, setMenuClicked] = useState(() => {

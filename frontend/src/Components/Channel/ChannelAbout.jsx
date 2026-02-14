@@ -10,10 +10,9 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import { BiTrendingUp } from "react-icons/bi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { backendURL } from "../../config/backend";
 
 function ChannelAbout(prop) {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000"
   const [Email, setEmail] = useState();
   const [description, setDescription] = useState();
   const [links, setLinks] = useState();

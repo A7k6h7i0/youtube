@@ -23,6 +23,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { LiaUploadSolid } from "react-icons/lia";
 import { useSelector } from "react-redux";
+import { backendURL } from "../config/backend";
 
 //SOCIALS
 
@@ -32,8 +33,6 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import LanguageIcon from "@mui/icons-material/Language";
 
 function Studio() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000";
   const [isChannel, setisChannel] = useState();
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedThumbnail, setSelectedThumbnail] = useState(null);

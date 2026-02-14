@@ -10,10 +10,9 @@ import nothing from "../img/nothing.png";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import { backendURL } from "../config/backend";
 
 function Trending() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app";
-  // const backendURL = "http://localhost:3000";
   const [trendingVideos, setTrendingVideos] = useState([]);
   const [menuClicked, setMenuClicked] = useState(() => {
     const menu = localStorage.getItem("menuClicked");
@@ -50,7 +49,7 @@ function Trending() {
     const getTrending = async () => {
       try {
         const response = await fetch(
-          "https://youtube-clone-mern-backend.vercel.app/gettrending"
+          `${backendURL}/gettrending`
         );
         const trending = await response.json();
         if (trending !== "NO DATA") {

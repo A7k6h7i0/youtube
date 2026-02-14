@@ -4,7 +4,11 @@ const express = require("express");
 const userData = require("../Models/user");
 const videodata = require("../Models/videos");
 const cookieParser = require("cookie-parser");
-const { verifyRefreshToken, generateAccessToken } = require("../lib/tokens");
+const {
+  verifyRefreshToken,
+  generateAccessToken,
+  getAuthCookieOptions,
+} = require("../lib/tokens");
 const Likes = express.Router();
 
 Likes.use(cookieParser());
@@ -26,9 +30,7 @@ Likes.post("/like/:id/:email/:email2", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -175,9 +177,7 @@ Likes.post("/dislikevideo/:id/:email", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }

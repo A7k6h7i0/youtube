@@ -9,10 +9,9 @@ import noImage2 from "../../img/novideo.png";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import { backendURL } from "../../config/backend";
 
 function ChannelHome(prop) {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000"
   const [myVideos, setMyVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showHome, setShowHome] = useState(false);

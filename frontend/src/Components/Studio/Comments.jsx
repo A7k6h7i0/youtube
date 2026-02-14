@@ -14,10 +14,9 @@ import noImage from "../../img/no-comment.png";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import { backendURL } from "../../config/backend";
 
 function Comments() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000";
   const [AllComments, setAllComments] = useState([]);
   const [Profile, setProfile] = useState();
   const [filterComment, setFilterComment] = useState("");

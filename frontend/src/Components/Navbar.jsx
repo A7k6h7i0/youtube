@@ -20,9 +20,8 @@ import { IoIosSearch } from "react-icons/io";
 import { RxCross1 } from "react-icons/rx";
 import { AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import { backendURL } from "../config/backend";
 function Navbar() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000";
   const { data } = useParams();
   const [data2, setData] = useState(data);
   const [isbtnClicked, setisbtnClicked] = useState(false);
@@ -162,19 +161,21 @@ function Navbar() {
             title="YouTube studio"
             placement="bottom"
           >
-            <AiOutlineVideoCameraAdd
-              className={theme ? "icon-btns videocreate" : "video-light"}
-              fontSize="24px"
-              style={{ color: theme ? "white" : "black" }}
-              onClick={() => {
-                if (User.success) {
-                  window.location.href = "/studio";
-                } else {
-                  setisbtnClicked(true);
-                  document.body.classList.add("bg-css");
-                }
-              }}
-            />
+            <span style={{ display: "inline-flex" }}>
+              <AiOutlineVideoCameraAdd
+                className={theme ? "icon-btns videocreate" : "video-light"}
+                fontSize="24px"
+                style={{ color: theme ? "white" : "black" }}
+                onClick={() => {
+                  if (User.success) {
+                    window.location.href = "/studio";
+                  } else {
+                    setisbtnClicked(true);
+                    document.body.classList.add("bg-css");
+                  }
+                }}
+              />
+            </span>
           </Tooltip>
 
           <button

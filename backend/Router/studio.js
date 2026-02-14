@@ -7,7 +7,11 @@ const videodata = require("../Models/videos");
 const TrendingData = require("../Models/trending");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
-const { verifyRefreshToken, generateAccessToken } = require("../lib/tokens");
+const {
+  verifyRefreshToken,
+  generateAccessToken,
+  getAuthCookieOptions,
+} = require("../lib/tokens");
 const Studio = express.Router();
 
 Studio.use(cookieParser());
@@ -29,9 +33,7 @@ Studio.post("/deletevideo/:videoId", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -128,9 +130,7 @@ Studio.post("/savevideoeditdetails/:videoId", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -285,9 +285,7 @@ Studio.post("/savelinksdata/:email", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }

@@ -1,7 +1,6 @@
 require("dotenv").config();
 require("../Database/database");
 const express = require("express");
-const cors = require("cors");
 const bodyParser = require("body-parser");
 const router = express.Router();
 const auth = require("./auth");
@@ -12,14 +11,6 @@ const Comments = require("./comments");
 const Studio = require("./studio");
 
 // Middlewares
-router.use(
-  cors({
-    origin: ["https://shubho-youtube-mern.netlify.app"],
-    // origin: "http://localhost:5173",
-    methods: ["POST", "GET"],
-    credentials: true,
-  })
-);
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(auth);

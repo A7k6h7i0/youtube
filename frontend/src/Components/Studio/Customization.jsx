@@ -5,10 +5,9 @@ import Branding from "./Branding";
 import { useState, useEffect } from "react";
 import Basic from "./Basic";
 import { useSelector } from "react-redux";
+import { backendURL } from "../../config/backend";
 
 function Customization() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000";
   const [currentTab, setCurrentTab] = useState("branding");
   const [channelID, setChannelID] = useState();
   const [menu, setmenu] = useState(() => {

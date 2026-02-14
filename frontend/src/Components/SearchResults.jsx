@@ -15,10 +15,9 @@ import Zoom from "@mui/material/Zoom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
+import { backendURL } from "../config/backend";
 
 function SearchResults() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000";
   const { data } = useParams();
   const [searchedVideoData, setsearchedVideoData] = useState([]);
   const [searchedChannelData, setsearchedChannelData] = useState([]);

@@ -12,10 +12,9 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import noVideo from "../../img/no-video2.png";
 import { useSelector } from "react-redux";
+import { backendURL } from "../../config/backend";
 
 function Dashboard() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000";
   const [myVideos, setMyVideos] = useState([]);
   const [dropDown, setDropDown] = useState(true);
   const [showSortedVideos, setShowSortedVideos] = useState(false); // State for hover effect

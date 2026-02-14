@@ -12,6 +12,7 @@ import { CiShare1 } from "react-icons/ci";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
 import { useSelector } from "react-redux";
+import { backendURL } from "../config/backend";
 // REACT ICONS
 
 import { MdDashboard } from "react-icons/md";
@@ -20,8 +21,6 @@ import { BiCommentDetail } from "react-icons/bi";
 import { MdOutlineAutoFixHigh } from "react-icons/md";
 
 function LeftPanel2() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000";
   const [profileIMG, setProfileIMG] = useState();
   const [channel, setChannel] = useState("");
   const [channelId, setChannelId] = useState();

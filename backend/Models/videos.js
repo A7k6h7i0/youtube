@@ -42,58 +42,64 @@ const VideoData = new mongoose.Schema({
       }
     },
   },
-  VideoData: [
-    {
-      thumbnailURL: {
-        type: String,
-        required: true,
+  VideoData: {
+    type: [
+      {
+        thumbnailURL: {
+          type: String,
+          required: true,
+        },
+        uploader: {
+          type: String,
+          required: true,
+        },
+        videoURL: {
+          type: String,
+          required: true,
+        },
+        ChannelProfile: {
+          type: String,
+          required: true,
+        },
+        Title: {
+          type: String,
+          required: true,
+        },
+        Description: {
+          type: String,
+          required: true,
+        },
+        Tags: {
+          type: String,
+          required: true,
+        },
+        videoLength: {
+          type: Number,
+          required: true,
+        },
+        views: {
+          type: Number,
+          default: 0,
+        },
+        uploaded_date: {
+          type: String,
+        },
+        visibility: {
+          type: String,
+          default: "Public",
+        },
+        likes: {
+          type: Number,
+          default: 0,
+        },
+        comments: {
+          type: [Comment],
+          default: [],
+        },
       },
-      uploader: {
-        type: String,
-        required: true,
-      },
-      videoURL: {
-        type: String,
-        required: true,
-      },
-      ChannelProfile: {
-        type: String,
-        required: true,
-      },
-      Title: {
-        type: String,
-        required: true,
-      },
-      Description: {
-        type: String,
-        required: true,
-      },
-      Tags: {
-        type: String,
-        required: true,
-      },
-      videoLength: {
-        type: Number,
-        required: true,
-      },
-      views: {
-        type: Number,
-        default: 0,
-      },
-      uploaded_date: {
-        type: String,
-      },
-      visibility: {
-        type: String,
-        default: "Public",
-      },
-      likes: {
-        type: Number,
-        default: 0,
-      },
-      comments: [Comment],
-    },
-  ],
+    ],
+    default: [],
+  },
 });
 
 const VideoDataModel = mongoose.model("VideoData", VideoData);

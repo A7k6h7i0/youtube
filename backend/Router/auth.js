@@ -11,6 +11,7 @@ const {
   generateAccessToken,
   generateRefreshToken,
   verifyAccessToken,
+  getAuthCookieOptions,
 } = require("../lib/tokens");
 
 auth.use(cookieParser());
@@ -92,15 +93,11 @@ auth.post("/signup", async (req, res) => {
 
     res
       .cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       })
       .cookie("refreshToken", refreshToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       })
       .status(201)
@@ -142,15 +139,11 @@ auth.post("/login", async (req, res) => {
         const accessToken = generateAccessToken(user);
         res
           .cookie("refreshToken", newRefreshToken, {
-            httpOnly: false,
-            sameSite: "None",
-            secure: true,
+            ...getAuthCookieOptions(),
             maxAge: 24 * 60 * 60 * 1000,
           })
           .cookie("accessToken", accessToken, {
-            httpOnly: false,
-            sameSite: "None",
-            secure: true,
+            ...getAuthCookieOptions(),
             maxAge: 24 * 60 * 60 * 1000,
           });
         user.refreshToken = newRefreshToken;
@@ -158,9 +151,7 @@ auth.post("/login", async (req, res) => {
       } else {
         const accessToken = generateAccessToken(user);
         res.cookie("accessToken", accessToken, {
-          httpOnly: false,
-          sameSite: "None",
-          secure: true,
+          ...getAuthCookieOptions(),
           maxAge: 24 * 60 * 60 * 1000,
         });
       }
@@ -274,7 +265,7 @@ auth.get("/userdata", async (req, res) => {
     const accessToken = req.cookies?.accessToken;
     const refreshToken = req.cookies?.refreshToken;
     if (!accessToken || !refreshToken) {
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
         message: "You are not logged in",
       });

@@ -15,6 +15,7 @@ import "../Css/library.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
+import { backendURL } from "../config/backend";
 function generateRandomColors(count) {
   const transparency = 0.65; // Adjust transparency as needed (0 to 1)
   const colors = [];
@@ -30,8 +31,6 @@ function generateRandomColors(count) {
 }
 
 function Library() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000";
   const [watchlater, setWatchLater] = useState([]);
   const [PlaylistData, setPlaylistData] = useState([]);
   const [playlistColors, setPlaylistColors] = useState([]);

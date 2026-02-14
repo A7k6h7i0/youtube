@@ -18,10 +18,9 @@ import { storage } from "../../Firebase";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GrUndo } from "react-icons/gr";
+import { backendURL } from "../../config/backend";
 
 function VideoDetails() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000";
   const { id } = useParams();
   const [videodata, setVideoData] = useState();
   const [previewTitle, setPreviewTitle] = useState("");

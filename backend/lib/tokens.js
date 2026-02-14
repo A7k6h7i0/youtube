@@ -23,9 +23,19 @@ const verifyRefreshToken = (token) => {
   return jwt.verify(token, process.env.SECRET_KEY);
 };
 
+const getAuthCookieOptions = () => {
+  const isProduction = process.env.NODE_ENV === "production";
+  return {
+    httpOnly: false,
+    sameSite: isProduction ? "None" : "Lax",
+    secure: isProduction,
+  };
+};
+
 module.exports = {
   generateAccessToken,
   generateRefreshToken,
   verifyAccessToken,
   verifyRefreshToken,
+  getAuthCookieOptions,
 };

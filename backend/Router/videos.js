@@ -5,10 +5,39 @@ const userData = require("../Models/user");
 const videodata = require("../Models/videos");
 const TrendingData = require("../Models/trending");
 const cookieParser = require("cookie-parser");
-const { verifyRefreshToken, generateAccessToken } = require("../lib/tokens");
+const {
+  verifyRefreshToken,
+  generateAccessToken,
+  getAuthCookieOptions,
+} = require("../lib/tokens");
 const Videos = express.Router();
 
 Videos.use(cookieParser());
+
+const ensureDebugOnly = (req, res, next) => {
+  if (process.env.NODE_ENV === "production") {
+    return res.status(404).json({ message: "Not found" });
+  }
+  next();
+};
+
+const ensureSeedAuthorized = (req, res, next) => {
+  const isProduction = process.env.NODE_ENV === "production";
+  const secret = process.env.SEED_SECRET;
+
+  if (isProduction && !secret) {
+    return res.status(404).json({ message: "Not found" });
+  }
+
+  if (secret) {
+    const provided = req.get("x-seed-secret");
+    if (provided !== secret) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+  }
+
+  next();
+};
 
 Videos.post("/publish", async (req, res) => {
   try {
@@ -37,9 +66,7 @@ Videos.post("/publish", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -100,44 +127,53 @@ Videos.post("/publish", async (req, res) => {
 
 Videos.get("/getvideos", async (req, res) => {
   try {
+    res.set("Cache-Control", "no-store");
     const videos = await videodata.find({});
+    const safeVideoArray = (video) =>
+      Array.isArray(video?.VideoData) ? video.VideoData : [];
+
     const videoURLs = videos.flatMap((video) =>
-      video.VideoData.map((data) => data.videoURL)
+      safeVideoArray(video).map((data) => data.videoURL)
     );
-    const videoData = videos.flatMap((video) => video);
     const thumbnailURLs = videos.flatMap((video) =>
-      video.VideoData.map((data) => data.thumbnailURL)
+      safeVideoArray(video).map((data) => data.thumbnailURL)
     );
     const titles = videos.flatMap((video) =>
-      video.VideoData.map((data) => data.Title)
+      safeVideoArray(video).map((data) => data.Title)
     );
     const Uploader = videos.flatMap((video) =>
-      video.VideoData.map((data) => data.uploader)
+      safeVideoArray(video).map((data) => data.uploader)
     );
     const Duration = videos.flatMap((video) =>
-      video.VideoData.map((data) => data.videoLength)
+      safeVideoArray(video).map((data) => data.videoLength)
     );
     const Profile = videos.flatMap((video) =>
-      video.VideoData.map((data) => data.ChannelProfile)
+      safeVideoArray(video).map((data) => data.ChannelProfile)
     );
     const videoID = videos.flatMap((video) =>
-      video.VideoData.map((data) => data.id)
+      safeVideoArray(video).map((data) => data.id)
     );
     const comments = videos.flatMap((video) =>
-      video.VideoData.map((data) => data.comments)
+      safeVideoArray(video).map((data) => data.comments)
     );
     const views = videos.flatMap((video) =>
-      video.VideoData.map((data) => data.views)
+      safeVideoArray(video).map((data) => data.views)
     );
     const uploadDate = videos.flatMap((video) =>
-      video.VideoData.map((data) => data.uploaded_date)
+      safeVideoArray(video).map((data) => data.uploaded_date)
     );
     const Likes = videos.flatMap((video) =>
-      video.VideoData.map((data) => data.likes)
+      safeVideoArray(video).map((data) => data.likes)
     );
     const Visibility = videos.flatMap((video) =>
-      video.VideoData.map((data) => data.visibility)
+      safeVideoArray(video).map((data) => data.visibility)
     );
+
+    const videoData = videos.map((video) => {
+      const obj = video.toObject();
+      if (!Array.isArray(obj.VideoData)) obj.VideoData = [];
+      return obj;
+    });
 
     res.json({
       thumbnailURLs,
@@ -155,7 +191,234 @@ Videos.get("/getvideos", async (req, res) => {
       videoData,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "An error occurred" });
+  }
+});
+
+Videos.get("/debug/videos-count", ensureDebugOnly, async (req, res) => {
+  try {
+    const connectionState = require("mongoose").connection.readyState;
+    const totalDocs = await videodata.estimatedDocumentCount();
+    const docsWithVideoData = await videodata.countDocuments({
+      VideoData: { $exists: true, $ne: [] },
+    });
+
+    const videoCounts = await videodata.aggregate([
+      {
+        $project: {
+          count: {
+            $size: {
+              $ifNull: ["$VideoData", []],
+            },
+          },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalVideos: { $sum: "$count" },
+        },
+      },
+    ]);
+    const totalVideos = videoCounts[0]?.totalVideos || 0;
+
+    res.json({ connectionState, totalDocs, docsWithVideoData, totalVideos });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An error occurred" });
+  }
+});
+
+Videos.get("/debug/cookies", ensureDebugOnly, (req, res) => {
+  res.json({ cookies: req.cookies || {} });
+});
+
+Videos.post("/dev/seed-demo-videos", ensureSeedAuthorized, async (req, res) => {
+  try {
+    const isoDate = new Date().toISOString();
+
+    const videoSources = [
+      "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      "https://www.w3schools.com/html/mov_bbb.mp4",
+      "https://media.w3.org/2010/05/sintel/trailer.mp4",
+    ];
+
+    const perCategory =
+      Number(req.body?.perCategory) > 0 ? Number(req.body.perCategory) : 10;
+    const trendingCount =
+      Number(req.body?.trendingCount) > 0 ? Number(req.body.trendingCount) : 10;
+
+    const makeVideo = ({
+      seed,
+      uploader,
+      channelProfile,
+      title,
+      description,
+      tags,
+      sourceIndex,
+      seconds,
+    }) => ({
+      thumbnailURL: `https://picsum.photos/seed/${seed}/640/360`,
+      uploader,
+      videoURL: videoSources[sourceIndex % videoSources.length],
+      ChannelProfile: channelProfile,
+      Title: title,
+      Description: description,
+      Tags: tags,
+      videoLength: seconds,
+      uploaded_date: isoDate,
+      visibility: "Public",
+      likes: 0,
+      views: 0,
+      comments: [],
+    });
+
+    const demoChannels = [
+      {
+        tag: "Artificial Intelligence",
+        email: "demo.ai@example.com",
+        uploader: "AI Academy",
+        profile: "https://i.pravatar.cc/150?img=12",
+        extraTags: "AI, Tech, Machine Learning",
+      },
+      {
+        tag: "Comedy",
+        email: "demo.comedy@example.com",
+        uploader: "Funny Hub",
+        profile: "https://i.pravatar.cc/150?img=22",
+        extraTags: "Funny, Standup",
+      },
+      {
+        tag: "Gaming",
+        email: "demo.gaming@example.com",
+        uploader: "Gaming World",
+        profile: "https://i.pravatar.cc/150?img=5",
+        extraTags: "Highlights, Gameplay",
+      },
+      {
+        tag: "Vlog",
+        email: "demo.vlog@example.com",
+        uploader: "Daily Vlogs",
+        profile: "https://i.pravatar.cc/150?img=33",
+        extraTags: "Lifestyle",
+      },
+      {
+        tag: "Beauty",
+        email: "demo.beauty@example.com",
+        uploader: "Glow Studio",
+        profile: "https://i.pravatar.cc/150?img=41",
+        extraTags: "Skincare, Makeup",
+      },
+      {
+        tag: "Travel",
+        email: "demo.travel@example.com",
+        uploader: "Travel Now",
+        profile: "https://i.pravatar.cc/150?img=9",
+        extraTags: "Adventure",
+      },
+      {
+        tag: "Food",
+        email: "demo.food@example.com",
+        uploader: "Food Corner",
+        profile: "https://i.pravatar.cc/150?img=18",
+        extraTags: "Cooking, Street Food",
+      },
+      {
+        tag: "Fashion",
+        email: "demo.fashion@example.com",
+        uploader: "Style Guide",
+        profile: "https://i.pravatar.cc/150?img=28",
+        extraTags: "Outfits, Trends",
+      },
+    ].filter((channel) => {
+      if (!Array.isArray(req.body?.categories) || req.body.categories.length === 0) {
+        return true;
+      }
+      return req.body.categories.includes(channel.tag);
+    });
+
+    const results = [];
+    const seededForTrending = [];
+
+    for (const channel of demoChannels) {
+      const videos = Array.from({ length: perCategory }).map((_, index) => {
+        const n = index + 1;
+        const seed = `demo-${channel.tag.toLowerCase().replaceAll(" ", "-")}-${Date.now()}-${n}`;
+        return makeVideo({
+          seed,
+          uploader: channel.uploader,
+          channelProfile: channel.profile,
+          title: `${channel.tag} Video #${n}`,
+          description: `Demo ${channel.tag} video ${n}.`,
+          tags: `${channel.tag}, ${channel.extraTags}`,
+          sourceIndex: n,
+          seconds: 60 + ((n * 13) % 240),
+        });
+      });
+
+      const doc = await videodata.findOneAndUpdate(
+        { email: channel.email },
+        {
+          $setOnInsert: { email: channel.email },
+          $push: { VideoData: { $each: videos } },
+        },
+        { upsert: true, new: true, setDefaultsOnInsert: true }
+      );
+
+      const newSubdocs = doc.VideoData.slice(-videos.length);
+      newSubdocs.forEach((subdoc, idx) => {
+        seededForTrending.push({
+          email: channel.email,
+          videoid: subdoc._id.toString(),
+          base: { ...videos[idx] },
+        });
+      });
+
+      results.push({
+        email: channel.email,
+        tag: channel.tag,
+        added: videos.length,
+        total: doc.VideoData.length,
+      });
+    }
+
+    const trendingPick = seededForTrending.slice(0, trendingCount);
+    for (let i = 0; i < trendingPick.length; i++) {
+      const t = trendingPick[i];
+      await TrendingData.updateOne(
+        { videoid: t.videoid },
+        {
+          $setOnInsert: {
+            email: t.email,
+            thumbnailURL: t.base.thumbnailURL,
+            trendingNo: i + 1,
+            uploader: t.base.uploader,
+            videoURL: t.base.videoURL,
+            ChannelProfile: t.base.ChannelProfile,
+            Title: t.base.Title,
+            Description: t.base.Description,
+            videoid: t.videoid,
+            videoLength: t.base.videoLength,
+            views: 5000 - i * 250,
+            uploaded_date: isoDate,
+          },
+        },
+        { upsert: true }
+      );
+    }
+
+    const totalAdded = results.reduce((sum, r) => sum + r.added, 0);
+    res.json({
+      success: true,
+      perCategory,
+      trendingCount: trendingPick.length,
+      channels: results,
+      totalAdded,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "An error occurred" });
   }
 });
 
@@ -227,13 +490,15 @@ Videos.post("/updateview/:id", async (req, res) => {
     video.VideoData[videoIndex].views += 1;
     await video.save();
 
-    if (!trending) {
-      return res.status(404).json({ error: "Video not found" });
+    if (trending) {
+      trending.views += 1;
+      await trending.save();
     }
-    trending.views += 1;
-    await trending.save();
+
+    return res.status(200).json({ success: true });
   } catch (error) {
-    res.json(error.message);
+    console.error(error);
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -272,9 +537,7 @@ Videos.post("/watchlater/:id/:email/:email2", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -556,9 +819,7 @@ Videos.post("/addplaylist/:email", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -647,9 +908,7 @@ Videos.post("/addvideotoplaylist/:email", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -741,9 +1000,7 @@ Videos.post("/removevideo/:email/:videoID/:playlistID", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -821,9 +1078,7 @@ Videos.post("/saveplaylist/:playlistID", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -869,9 +1124,7 @@ Videos.post("/deleteplaylist/:playlistID", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -908,9 +1161,7 @@ Videos.post("/saveplaylistprivacy/:playlistID", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -954,9 +1205,7 @@ Videos.post("/addotherplaylist/:playlistID/:email", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }

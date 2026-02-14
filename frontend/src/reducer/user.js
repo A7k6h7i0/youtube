@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { backendURL } from "../config/backend";
 
 // Define the initial state
 const initialState = {
@@ -11,7 +12,7 @@ const initialState = {
 export const fetchUserData = createAsyncThunk(
   "user/fetchUserData",
   async () => {
-    const response = await fetch("https://youtube-clone-mern-backend.vercel.app/userdata", {
+    const response = await fetch(`${backendURL}/userdata`, {
       credentials: "include",
     });
     const data = await response.json();

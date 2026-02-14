@@ -12,10 +12,9 @@ import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
 import { SiYoutubestudio } from "react-icons/si";
 import { useSelector } from "react-redux";
+import { backendURL } from "../config/backend";
 
 function AccountPop() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app"
-  // const backendURL = "http://localhost:3000";
   const [profile, setProfile] = useState("");
   const [theme, setTheme] = useState(() => {
     const Dark = localStorage.getItem("Dark");

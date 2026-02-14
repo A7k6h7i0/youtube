@@ -5,7 +5,11 @@ const userData = require("../Models/user");
 const videodata = require("../Models/videos");
 const TrendingData = require("../Models/trending");
 const cookieParser = require("cookie-parser");
-const { generateAccessToken, verifyRefreshToken } = require("../lib/tokens");
+const {
+  generateAccessToken,
+  verifyRefreshToken,
+  getAuthCookieOptions,
+} = require("../lib/tokens");
 const Channel = express.Router();
 
 Channel.use(cookieParser());
@@ -136,9 +140,7 @@ Channel.post("/savechannel", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -317,9 +319,7 @@ Channel.post("/subscribe/:channelID/:email/:email2", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -465,9 +465,7 @@ Channel.post("/savefeaturedchannel/:email", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -540,9 +538,7 @@ Channel.post("/deletefeaturedchannel/:email/:channelid", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -585,9 +581,7 @@ Channel.post("/savecustomization/:email", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -671,9 +665,7 @@ Channel.post("/updatechanneldata/:email", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }

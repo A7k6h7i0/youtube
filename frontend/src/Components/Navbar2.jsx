@@ -16,10 +16,9 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { BiSearch } from "react-icons/bi";
 import { useSelector } from "react-redux";
+import { backendURL } from "../config/backend";
 
 function Navbar2() {
-  const backendURL = "https://youtube-clone-mern-backend.vercel.app";
-  // const backendURL = "http://localhost:3000";
   const [profilePic, setProfilePic] = useState();
   const [userVideos, setUserVideos] = useState([]);
   const [showPop, setShowPop] = useState(false);

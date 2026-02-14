@@ -3,7 +3,11 @@ require("../Database/database");
 const express = require("express");
 const userData = require("../Models/user");
 const videodata = require("../Models/videos");
-const { verifyRefreshToken, generateAccessToken } = require("../lib/tokens");
+const {
+  verifyRefreshToken,
+  generateAccessToken,
+  getAuthCookieOptions,
+} = require("../lib/tokens");
 const cookieParser = require("cookie-parser");
 const Comments = express.Router();
 
@@ -27,9 +31,7 @@ Comments.post("/comments/:id", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -100,9 +102,7 @@ Comments.post("/likecomment/:videoId/:commentId/:email", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -179,9 +179,7 @@ Comments.post("/heartcomment/:videoId/:commentID", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
@@ -307,9 +305,7 @@ Comments.post("/deletecomment/:videoId/:commentId/:email", async (req, res) => {
       const userData = { id: userID };
       const accessToken = generateAccessToken(userData);
       res.cookie("accessToken", accessToken, {
-        httpOnly: false,
-        sameSite: "None",
-        secure: true,
+        ...getAuthCookieOptions(),
         maxAge: 24 * 60 * 60 * 1000,
       });
     }
