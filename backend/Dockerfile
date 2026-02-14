@@ -1,16 +1,13 @@
-FROM node
+FROM node:20-bullseye-slim
 
 WORKDIR /app/backend
 
-COPY . /app/backend/
+COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm ci --omit=dev
 
-ENV DB_user=value
-ENV DB_password=value
-ENV DB_name=value
-ENV SECRET_KEY=value
-ENV EMAIL=value
-ENV PASSWORD=value
+COPY . .
+
+ENV NODE_ENV=production
 
 CMD ["node", "server.js"]
