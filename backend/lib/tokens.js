@@ -24,15 +24,14 @@ const verifyRefreshToken = (token) => {
 };
 
 const getAuthCookieOptions = () => {
-  // Determine if we're in production (not localhost)
-  const isProduction = process.env.NODE_ENV === "production";
+  // Check if we're running on a production domain (not localhost)
+  const isProd = process.env.NODE_ENV === "production" || 
+                 process.env.RENDER_EXTERNAL_URL?.includes(".onrender.com");
   
-  // Use SameSite=None and Secure for production (required for cross-origin cookies)
-  // Use SameSite=Lax for development
   return {
     httpOnly: false,
-    sameSite: isProduction ? "None" : "Lax",
-    secure: isProduction,
+    sameSite: isProd ? "None" : "Lax",
+    secure: isProd,
     path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   };
