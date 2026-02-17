@@ -24,13 +24,17 @@ const verifyRefreshToken = (token) => {
 };
 
 const getAuthCookieOptions = () => {
+  // Determine if we're in production (not localhost)
   const isProduction = process.env.NODE_ENV === "production";
+  
+  // Use SameSite=None and Secure for production (required for cross-origin cookies)
+  // Use SameSite=Lax for development
   return {
     httpOnly: false,
     sameSite: isProduction ? "None" : "Lax",
     secure: isProduction,
     path: "/",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   };
 };
 
