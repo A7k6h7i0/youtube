@@ -11,6 +11,7 @@ const {
   generateAccessToken,
   generateRefreshToken,
   verifyAccessToken,
+  verifyRefreshToken,
   getAuthCookieOptions,
 } = require("../lib/tokens");
 
@@ -133,28 +134,22 @@ auth.post("/login", async (req, res) => {
     const userPassword = user.password;
     const checkPassword = await bcrypt.compare(password1, userPassword);
     if (checkPassword) {
-      const refreshToken = req.cookies?.refreshToken;
-      if (!refreshToken) {
-        const newRefreshToken = generateRefreshToken(user);
-        const accessToken = generateAccessToken(user);
-        res
-          .cookie("refreshToken", newRefreshToken, {
-            ...getAuthCookieOptions(),
-            maxAge: 24 * 60 * 60 * 1000,
-          })
-          .cookie("accessToken", accessToken, {
-            ...getAuthCookieOptions(),
-            maxAge: 24 * 60 * 60 * 1000,
-          });
-        user.refreshToken = newRefreshToken;
-        await user.save();
-      } else {
-        const accessToken = generateAccessToken(user);
-        res.cookie("accessToken", accessToken, {
+      const newRefreshToken = generateRefreshToken(user);
+      const accessToken = generateAccessToken(user);
+
+      res
+        .cookie("refreshToken", newRefreshToken, {
+          ...getAuthCookieOptions(),
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+        })
+        .cookie("accessToken", accessToken, {
           ...getAuthCookieOptions(),
           maxAge: 24 * 60 * 60 * 1000,
         });
-      }
+
+      user.refreshToken = newRefreshToken;
+      await user.save();
+
       return res.status(200).json({
         message: "LOGIN SUCCESSFUL",
       });
@@ -237,17 +232,12 @@ auth.post("/resetlink", async (req, res) => {
 
 auth.get("/logout", (req, res) => {
   try {
-    const accessToken = req.cookies?.accessToken;
-    const refreshToken = req.cookies?.refreshToken;
-    if (!accessToken || !refreshToken) {
-      return res.status(400).json({
-        success: false,
-        message: "You are not logged in",
-      });
-    }
-
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
+    const clearOptions = {
+      ...getAuthCookieOptions(),
+      maxAge: 0,
+    };
+    res.clearCookie("accessToken", clearOptions);
+    res.clearCookie("refreshToken", clearOptions);
     res.status(200).json({
       success: true,
       message: "Logout successful",
@@ -264,20 +254,36 @@ auth.get("/userdata", async (req, res) => {
   try {
     const accessToken = req.cookies?.accessToken;
     const refreshToken = req.cookies?.refreshToken;
-    if (!accessToken || !refreshToken) {
-      return res.status(200).json({
+    const sendNotLoggedIn = () =>
+      res.status(200).json({
         success: false,
         message: "You are not logged in",
       });
+
+    if (!accessToken && !refreshToken) return sendNotLoggedIn();
+
+    if (accessToken) {
+      try {
+        const userdata = verifyAccessToken(accessToken);
+        const user = await userData.findById(userdata?.id).select("-password");
+        return res.status(200).json({ success: true, user });
+      } catch {
+        // Fall back to refresh token below.
+      }
     }
 
-    const userdata = verifyAccessToken(accessToken);
+    if (!refreshToken) return sendNotLoggedIn();
+
+    const userdata = verifyRefreshToken(refreshToken);
     const user = await userData.findById(userdata?.id).select("-password");
 
-    res.status(200).json({
-      success: true,
-      user,
+    const newAccessToken = generateAccessToken({ id: userdata?.id });
+    res.cookie("accessToken", newAccessToken, {
+      ...getAuthCookieOptions(),
+      maxAge: 24 * 60 * 60 * 1000,
     });
+
+    return res.status(200).json({ success: true, user });
   } catch (error) {
     res.status(500).json({
       success: false,

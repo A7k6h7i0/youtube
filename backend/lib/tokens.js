@@ -1,15 +1,19 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
+const resolveUserId = (user) => user?._id || user?.id || user;
+
 const generateAccessToken = (user) => {
-  const accessToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
+  const userId = resolveUserId(user);
+  const accessToken = jwt.sign({ id: userId }, process.env.SECRET_KEY, {
     expiresIn: "1d",
   });
   return accessToken;
 };
 
 const generateRefreshToken = (user) => {
-  const refreshToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
+  const userId = resolveUserId(user);
+  const refreshToken = jwt.sign({ id: userId }, process.env.SECRET_KEY, {
     expiresIn: "7d",
   });
   return refreshToken;
@@ -29,8 +33,8 @@ const getAuthCookieOptions = () => {
                  process.env.RENDER_EXTERNAL_URL?.includes(".onrender.com");
   
   return {
-    httpOnly: false,
-    sameSite: isProd ? "None" : "Lax",
+    httpOnly: true,
+    sameSite: isProd ? "none" : "lax",
     secure: isProd,
     path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000,
