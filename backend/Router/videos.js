@@ -517,9 +517,15 @@ Videos.post("/dev/seed-demo-videos", ensureSeedAuthorized, async (req, res) => {
 Videos.get("/getuservideos/:email", async (req, res) => {
   try {
     const email = req.params.email;
+    
+    // Handle case when email is undefined (user not logged in)
+    if (!email || email === "undefined") {
+      return res.json([]);
+    }
+    
     const video = await videodata.findOne({ email });
     if (!video) {
-      return res.status(404).json({ error: "User not found" });
+      return res.json([]);
     }
 
     res.json(video.VideoData);
@@ -531,9 +537,15 @@ Videos.get("/getuservideos/:email", async (req, res) => {
 Videos.get("/getuserimage/:email", async (req, res) => {
   try {
     const email = req.params.email;
+    
+    // Handle case when email is undefined (user not logged in)
+    if (!email || email === "undefined") {
+      return res.json({ channelIMG: "" });
+    }
+    
     const user = await userData.findOne({ email });
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.json({ channelIMG: "" });
     }
     const channelIMG = user.profilePic;
     res.json({ channelIMG });
@@ -597,15 +609,21 @@ Videos.post("/updateview/:id", async (req, res) => {
 Videos.get("/getlikevideos/:email", async (req, res) => {
   try {
     const email = req.params.email;
+    
+    // Handle case when email is undefined (user not logged in)
+    if (!email || email === "undefined") {
+      return res.json([]);
+    }
+    
     const user = await userData.findOne({ email });
     if (!user) {
-      return res.json("USER DOESN'T EXISTS");
+      return res.json([]);
     }
     const LikedData = user.likedVideos;
     if (LikedData.length > 0) {
       res.json(LikedData);
     } else {
-      res.json("NO DATA");
+      res.json([]);
     }
   } catch (error) {
     res.json(error.message);
@@ -717,18 +735,23 @@ Videos.get("/checkwatchlater/:id/:email", async (req, res) => {
 
 Videos.get("/getwatchlater/:email", async (req, res) => {
   try {
-    const { id } = req.params;
     const email = req.params.email;
+    
+    // Handle case when email is undefined (user not logged in)
+    if (!email || email === "undefined") {
+      return res.json([]);
+    }
+    
     const user = await userData.findOne({ email });
     if (!user) {
-      return res.status(404).json({ error: "User doesn't exist" });
+      return res.json([]);
     }
     const savedData = user.watchLater;
 
     if (savedData && savedData.length > 0) {
       res.json(savedData);
     } else {
-      res.json({ savedData: "NO DATA" });
+      res.json([]);
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -954,9 +977,15 @@ Videos.post("/addplaylist/:email", async (req, res) => {
 Videos.get("/getplaylistdata/:email", async (req, res) => {
   try {
     const email = req.params.email;
+    
+    // Handle case when email is undefined (user not logged in)
+    if (!email || email === "undefined") {
+      return res.json([]);
+    }
+    
     const user = await userData.findOne({ email });
     if (!user) {
-      return res.status(404).json({ error: "User doesn't exist" });
+      return res.json([]);
     }
 
     const playlists = user.Playlists;
@@ -964,7 +993,7 @@ Videos.get("/getplaylistdata/:email", async (req, res) => {
     if (playlists && playlists.length > 0) {
       res.json(playlists);
     } else {
-      res.json("No playlists available...");
+      res.json([]);
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

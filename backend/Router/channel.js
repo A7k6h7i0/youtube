@@ -368,17 +368,23 @@ Channel.post("/subscribe/:channelID/:email/:email2", async (req, res) => {
 Channel.get("/getsubscriptions/:email", async (req, res) => {
   try {
     const email = req.params.email;
+    
+    // Handle case when email is undefined (user not logged in)
+    if (!email || email === "undefined") {
+      return res.status(200).json([]);
+    }
+    
     const user = await userData.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(200).json([]);
     }
 
     const subscribedData = user.subscribedChannels;
     if (subscribedData.length > 0) {
       return res.status(200).json(subscribedData);
     } else {
-      return res.status(200).json({ subscribedData: "NO DATA" });
+      return res.status(200).json([]);
     }
   } catch (error) {
     return res.status(500).json({ error: error.message });

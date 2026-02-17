@@ -127,16 +127,21 @@ Likes.get("/getuserlikes/:id/:email", async (req, res) => {
   try {
     const { id } = req.params;
     const email = req.params.email;
-
+    
+    // Handle case when email is undefined (user not logged in)
+    if (!email || email === "undefined") {
+      return res.json({ liked: false });
+    }
+    
     const video = await videodata.findOne({ "VideoData._id": id });
     const user = await userData.findOne({ email });
 
     if (!video) {
-      return res.status(404).json({ error: "Video not found" });
+      return res.json({ liked: false });
     }
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.json({ liked: false });
     }
 
     const videoIndex = video.VideoData.findIndex(
@@ -144,7 +149,7 @@ Likes.get("/getuserlikes/:id/:email", async (req, res) => {
     );
 
     if (videoIndex === -1) {
-      return res.status(404).json({ error: "Video not found" });
+      return res.json({ liked: false });
     }
 
     const likedData = video.VideoData[videoIndex];
