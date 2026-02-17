@@ -13,14 +13,22 @@ app.set("trust proxy", 1);
 // ✅ Enable CORS (ONLY ONCE)
 const allowedOrigins = (
   process.env.FRONTEND_ORIGINS ||
-  "http://localhost:5173"
+  "http://localhost:5173,https://shubho-youtube-mern.netlify.app"
 )
   .split(",")
   .map((s) => s.trim())
   .filter(Boolean);
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function(origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      // Also allow same-origin requests
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
   })
