@@ -4,6 +4,7 @@ const router = require("./Router/router");
 const path = require("path");
 const bodyParser = require("body-parser");
 const videodata = require("./Models/videos");
+const TrendingData = require("./Models/trending");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -112,6 +113,25 @@ const seedDemoVideos = async () => {
       await videodata.create({ email: channel.email, VideoData: videos });
       console.log(`Seeded ${videos.length} videos for ${channel.uploader}`);
     }
+    
+    // Seed trending data
+    console.log("Seeding trending data...");
+    const allVideos = await videodata.find({});
+    const allVideoData = allVideos.flatMap(v => v.VideoData || []).slice(0, 10);
+    
+    for (let i = 0; i < allVideoData.length; i++) {
+      const video = allVideoData[i];
+      await TrendingData.create({
+        email: video.email || "demo@example.com",
+        videoid: video._id,
+        thumbnailURL: video.thumbnailURL,
+        videoURL: video.videoURL,
+        uploader: video.uploader,
+        views: Math.floor(Math.random() * 5000) + 100,
+        trendingNo: i + 1,
+      });
+    }
+    console.log("Trending data seeded!");
     
     console.log("Demo videos seeding completed!");
   } catch (error) {

@@ -82,7 +82,24 @@ Videos.get("/seed-demo-videos", async (req, res) => {
       await videodata.create({ email: channel.email, VideoData: videos });
     }
     
-    res.json({ success: true, message: "Demo videos seeded successfully!" });
+    // Seed trending data
+    const allVideos = await videodata.find({});
+    const allVideoData = allVideos.flatMap(v => v.VideoData || []).slice(0, 10);
+    
+    for (let i = 0; i < allVideoData.length; i++) {
+      const video = allVideoData[i];
+      await TrendingData.create({
+        email: video.email || "demo@example.com",
+        videoid: video._id,
+        thumbnailURL: video.thumbnailURL,
+        videoURL: video.videoURL,
+        uploader: video.uploader,
+        views: Math.floor(Math.random() * 5000) + 100,
+        trendingNo: i + 1,
+      });
+    }
+    
+    res.json({ success: true, message: "Demo videos and trending data seeded successfully!" });
   } catch (error) {
     console.error("Error seeding demo videos:", error);
     res.status(500).json({ success: false, message: error.message });
