@@ -78,7 +78,7 @@ function SearchResults() {
         // console.log(error.message);
       }
     };
-    return () => getSearchResult();
+    getSearchResult();
   }, [data]);
 
   useEffect(() => {
@@ -126,7 +126,7 @@ function SearchResults() {
       }
     };
 
-    return () => getUserVideos();
+    getUserVideos();
   }, [userEmail]);
 
   useEffect(() => {
@@ -148,8 +148,8 @@ function SearchResults() {
       }
     };
 
-    return () => checkSubscription();
-  }, []);
+    checkSubscription();
+  }, [user?.email, channelID]);
 
   //POST REQUESTS
 

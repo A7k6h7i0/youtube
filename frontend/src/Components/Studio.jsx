@@ -603,7 +603,7 @@ function Studio() {
           <VideoCallOutlinedIcon
             className=""
             fontSize="large"
-            style={{ color: "#FF4E45" }}
+            style={{ color: "var(--sv-purple)" }}
           />
           <p className={theme ? "" : "text-light-mode"}>CREATE</p>
         </div>
@@ -1268,11 +1268,11 @@ function Studio() {
                   style={
                     Progress === 100
                       ? {
-                          display: "block",
-                          color: "#3ea6ff",
-                          marginRight: "6px",
-                          animation: "none",
-                        }
+                        display: "block",
+                        color: "#3ea6ff",
+                        marginRight: "6px",
+                        animation: "none",
+                      }
                       : { display: "none" }
                   }
                 />
@@ -1282,11 +1282,11 @@ function Studio() {
                   style={
                     Progress >= 60
                       ? {
-                          display: "block",
-                          color: "#3ea6ff",
-                          marginLeft: "6px",
-                          animation: "none",
-                        }
+                        display: "block",
+                        color: "#3ea6ff",
+                        marginLeft: "6px",
+                        animation: "none",
+                      }
                       : { display: "none" }
                   }
                 />
@@ -1325,9 +1325,8 @@ function Studio() {
                 <button
                   className={
                     loading || Progress !== 100
-                      ? `save-video-data-disable ${
-                          theme ? "" : "text-dark-mode"
-                        }`
+                      ? `save-video-data-disable ${theme ? "" : "text-dark-mode"
+                      }`
                       : `save-video-data ${theme ? "" : "text-dark-mode"}`
                   }
                   onClick={PublishData}

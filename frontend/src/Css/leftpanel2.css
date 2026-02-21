@@ -82,32 +82,32 @@
 
 .studio-active {
   background-color: #1e1e1e;
-  border-left: 5px solid #fe3e2b;
+  border-left: 5px solid var(--sv-purple);
   transition: all 0.15s ease;
 }
 
 .studio-active-light {
   background-color: #f1f1f1;
-  border-left: 5px solid #fe3e2b;
+  border-left: 5px solid var(--sv-purple);
   transition: all 0.15s ease;
 }
 
 .studio-active > .studio-icon,
 .studio-active-light > .studio-icon {
-  color: #fe3e2b !important;
+  color: var(--sv-purple) !important;
 }
 .studio-active > .studio-icon2,
 .studio-active-light > .studio-icon2 {
-  color: #fe3e2b !important;
+  color: var(--sv-purple) !important;
 }
 
 .studio-active > p {
   background-color: #1e1e1e;
-  color: #fe3e2b;
+  color: var(--sv-purple);
 }
 
 .studio-active-light > p {
-  color: #fe3e2b;
+  color: var(--sv-purple);
 }
 
 .studio-icon {
@@ -125,7 +125,7 @@
 }
 
 .studio-icon3 {
-  color: #fe3e2b !important;
+  color: var(--sv-purple) !important;
 }
 
 .view-channel2 {

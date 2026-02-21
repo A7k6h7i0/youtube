@@ -569,7 +569,7 @@ function Comments() {
                                   <FavoriteIcon
                                     className="heartlike-this"
                                     fontSize="100px"
-                                    style={{ color: "red" }}
+                                    style={{ color: "var(--sv-purple)" }}
                                   />
                                 </div>
                               </Tooltip>
@@ -763,7 +763,7 @@ function Comments() {
                                 <FavoriteIcon
                                   className="heartlike-this"
                                   fontSize="100px"
-                                  style={{ color: "red" }}
+                                  style={{ color: "var(--sv-purple)" }}
                                 />
                               </div>
                             </Tooltip>

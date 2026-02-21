@@ -529,7 +529,7 @@ function VideoComments() {
                                   <FavoriteIcon
                                     className="heartlike-this"
                                     fontSize="100px"
-                                    style={{ color: "red" }}
+                                    style={{ color: "var(--sv-purple)" }}
                                   />
                                 </div>
                               </Tooltip>
@@ -689,7 +689,7 @@ function VideoComments() {
                                 <FavoriteIcon
                                   className="heartlike-this"
                                   fontSize="100px"
-                                  style={{ color: "red" }}
+                                  style={{ color: "var(--sv-purple)" }}
                                 />
                               </div>
                             </Tooltip>

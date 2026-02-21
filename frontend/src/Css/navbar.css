@@ -512,14 +512,15 @@ form>input::placeholder {
   top: 100px;
   right: 35px;
   z-index: 2;
-  background-color: #282828;
+  background: var(--sv-surface);
   padding: 8px;
-  border: 1px solid rgba(128, 128, 128, 0.333);
+  border: 1px solid var(--sv-border);
   border-radius: 100%;
 }
 
 .create-btn:hover {
-  background-color: #242424;
+  background: var(--sv-hover);
+  border-color: var(--sv-border);
 }
 
 .create-btn-short:hover {
@@ -534,28 +535,31 @@ form>input::placeholder {
 
 .nav-search-results {
   position: absolute;
-  width: auto;
   width: 45.4vw;
-  color: white;
-  top: 77px;
-  background-color: #282828;
+  color: var(--sv-text);
+  top: 66px;
+  background: var(--sv-surface2);
+  border: 1px solid var(--sv-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   padding-top: 18px;
   padding-bottom: 18px;
-  border-radius: 4px;
+  border-radius: 12px;
   animation: blowdownwards 0.2s ease;
+  z-index: 5;
 }
 
 .nav-search-results2 {
   position: absolute;
-  width: auto;
   width: 45.4vw;
-
-  color: white;
-  top: 77px;
-  background-color: #282828;
+  color: var(--sv-text);
+  top: 66px;
+  background: var(--sv-surface2);
+  border: 1px solid var(--sv-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   padding-top: 18px;
   padding-bottom: 18px;
-  border-radius: 4px;
+  border-radius: 12px;
+  z-index: 5;
 }
 
 @keyframes blowdownwards {
@@ -589,7 +593,8 @@ form>input::placeholder {
 }
 
 .allsearch-video-data:hover {
-  background-color: #1f1f1f;
+  background: var(--sv-hover);
+  border-radius: 8px;
 }
 
 .searchdata-one {
