@@ -1,6 +1,6 @@
 .main-left-section {
-  background-color: #0f0f0f;
-  color: white;
+  background: var(--sv-bg);
+  color: var(--sv-text);
   position: fixed;
   top: 60px;
   height: 100%;
@@ -10,11 +10,12 @@
   z-index: 1;
   height: -webkit-fill-available;
   overflow: scroll;
+  border-right: 1px solid var(--sv-border);
 }
 
 .changeBG {
-  background-color: #3d3f4365;
-  border-radius: 8px;
+  background: var(--sv-hover);
+  border-radius: 10px;
 }
 
 .changeBG-light {
@@ -28,16 +29,17 @@
   display: flex;
   align-items: center;
   padding-left: 10px;
-  padding-right: 80px;
+  padding-right: 10px;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .sec-data:hover {
-  background-color: #3d3f4365;
-  border-radius: 8px;
+  background: var(--sv-hover);
+  border-radius: 10px;
 }
 
-.sec-data > p {
+.sec-data>p {
   padding-left: 20px;
 }
 
@@ -91,8 +93,8 @@
 }
 
 .mysubscriptions:hover {
-  background-color: #3d3f4365;
-  border-radius: 8px;
+  background: var(--sv-hover);
+  border-radius: 10px;
 }
 
 .sub-channelnamee {
@@ -109,11 +111,11 @@
 }
 
 .my-playlist-data:hover {
-  background-color: #3d3f4365;
-  border-radius: 8px;
+  background: var(--sv-hover);
+  border-radius: 10px;
 }
 
-.my-playlist-data > p {
+.my-playlist-data>p {
   padding-left: 20px;
 }
 
@@ -126,15 +128,21 @@
   padding-bottom: 26px;
   align-items: center;
 }
-.developer > a {
+
+.developer>a {
   margin-left: 10px;
-  color: #3eaffe;
+  background: var(--sv-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .secondary-panel {
   position: fixed;
-  background-color: #0f0f0f;
+  background: var(--sv-surface);
+  border-right: 1px solid var(--sv-border);
   z-index: 11;
   height: 100%;
   overflow: scroll;
@@ -145,6 +153,7 @@
   0% {
     left: -300px;
   }
+
   100% {
     left: 0px;
   }
@@ -158,14 +167,15 @@
   0% {
     left: 0px;
   }
+
   100% {
     left: -300px;
   }
 }
 
 .main-left-section-new {
-  background-color: #0f0f0f;
-  color: white;
+  background: var(--sv-bg);
+  color: var(--sv-text);
   height: 100vh;
   padding: 16px;
   width: 225px;
@@ -179,7 +189,8 @@
   position: fixed;
   z-index: 1;
   width: 215px;
-  background-color: #0f0f0f;
+  background: var(--sv-bg);
+  border-bottom: 1px solid var(--sv-border);
 }
 
 .close-sidepannel {
@@ -197,16 +208,13 @@
 
 .horizontal-panel {
   display: none;
-  background-color: #0f0f0f;
+  background: var(--sv-surface);
+  border-top: 1px solid var(--sv-border);
   position: fixed;
   z-index: 6;
   bottom: 0;
-  padding: 8px;
-  padding-left: 22px;
-  padding-right: 22px;
-  padding-top: 10px;
+  padding: 8px 22px 10px;
   width: -webkit-fill-available;
-  border-top: 2px solid rgba(128, 128, 128, 0.333);
 }
 
 .horizontal-main-section {
@@ -228,14 +236,17 @@
     font-size: 15px;
   }
 }
+
 @media (max-width: 860px) {
   .main-left-section {
     display: none !important;
   }
+
   .main-3 {
     display: flex !important;
     margin-top: 8px;
   }
+
   .main-left-section-new {
     font-size: 15px;
   }
@@ -245,6 +256,7 @@
   .main-left-section {
     display: none !important;
   }
+
   .horizontal-panel {
     display: block !important;
   }
@@ -254,6 +266,7 @@
   .hor-icons {
     font-size: 24px !important;
   }
+
   .addvid-icon {
     font-size: 44px !important;
   }
@@ -263,9 +276,11 @@
   .hor-icons {
     width: 22px !important;
   }
-  .hori > p {
+
+  .hori>p {
     font-size: 12px !important;
   }
+
   .horizontal-panel {
     padding-left: 15px;
     padding-right: 15px;

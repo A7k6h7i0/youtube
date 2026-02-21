@@ -82,7 +82,8 @@ Channel.get("/getchannelid/:email", async (req, res) => {
         .status(200)
         .json({ channelID, subscribers, channelDescription, links });
     } else {
-      return res.status(404).json({
+      return res.status(200).json({
+        hasChannel: false,
         message: "USER DOESN'T HAVE CHANNEL",
       });
     }
@@ -368,12 +369,12 @@ Channel.post("/subscribe/:channelID/:email/:email2", async (req, res) => {
 Channel.get("/getsubscriptions/:email", async (req, res) => {
   try {
     const email = req.params.email;
-    
+
     // Handle case when email is undefined (user not logged in)
     if (!email || email === "undefined") {
       return res.status(200).json([]);
     }
-    
+
     const user = await userData.findOne({ email });
 
     if (!user) {
@@ -386,6 +387,58 @@ Channel.get("/getsubscriptions/:email", async (req, res) => {
     } else {
       return res.status(200).json([]);
     }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+Channel.get("/getsubsfeed/:email", async (req, res) => {
+  try {
+    const email = req.params.email;
+    if (!email || email === "undefined") {
+      return res.status(200).json({ videos: [], subscriptions: [] });
+    }
+
+    const user = await userData.findOne({ email });
+    if (!user || !user.subscribedChannels || user.subscribedChannels.length === 0) {
+      return res.status(200).json({ videos: [], subscriptions: user?.subscribedChannels || [] });
+    }
+
+    const subscribedChannels = user.subscribedChannels;
+
+    // Get emails for all subscribed channel IDs in parallel
+    const emailResults = await Promise.all(
+      subscribedChannels.map(async (channel) => {
+        try {
+          const channelUser = await userData.findOne({ "channelData._id": channel.channelID });
+          return channelUser ? channelUser.email : null;
+        } catch {
+          return null;
+        }
+      })
+    );
+
+    const validEmails = emailResults.filter(Boolean);
+
+    // Fetch all video docs in parallel
+    const videoDocs = await Promise.all(
+      validEmails.map(async (e) => {
+        try {
+          const doc = await videodata.findOne({ email: e });
+          return doc ? doc.VideoData : [];
+        } catch {
+          return [];
+        }
+      })
+    );
+
+    // Merge, filter public only, and sort by newest
+    const allVideos = videoDocs
+      .flat()
+      .filter((v) => v && v.visibility === "Public")
+      .sort((a, b) => new Date(b.uploaded_date) - new Date(a.uploaded_date));
+
+    return res.status(200).json({ videos: allVideos, subscriptions: subscribedChannels });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

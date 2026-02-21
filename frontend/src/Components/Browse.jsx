@@ -1,5 +1,5 @@
 import "../Css/browse.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
@@ -35,6 +35,36 @@ function Browse() {
   });
 
   const user = useSelector((state) => state.user.user);
+  const [activeMenu, setActiveMenu] = useState(null); // index of card with open menu
+  const menuRef = useRef(null);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setActiveMenu(null);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
+
+  const saveToWatchLater = useCallback(async (videoId, uploaderEmail) => {
+    try {
+      if (!user?.user?.email) return;
+      const email = user.user.email;
+      const response = await fetch(`${backendURL}/watchlater/${videoId}/${email}/${uploaderEmail || email}`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      });
+      await response.json();
+    } catch {
+      // noop
+    }
+    setActiveMenu(null);
+  }, [user]);
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -316,13 +346,13 @@ function Browse() {
               style={
                 menuClicked === true
                   ? {
-                      paddingRight: "50px",
-                      display: TagsSelected === "All" ? "grid" : "none",
-                    }
+                    paddingRight: "50px",
+                    display: TagsSelected === "All" ? "grid" : "none",
+                  }
                   : {
-                      paddingRight: "0px",
-                      display: TagsSelected === "All" ? "grid" : "none",
-                    }
+                    paddingRight: "0px",
+                    display: TagsSelected === "All" ? "grid" : "none",
+                  }
               }
             >
               {thumbnails &&
@@ -330,143 +360,135 @@ function Browse() {
                 thumbnails.map((element, index) => {
                   return (
                     <div
-                      className="video-data"
+                      className="video-data browse-card-wrap"
                       key={VideoID?.[index] || index}
                       style={
                         Visibility[index] === "Public"
                           ? { display: "block" }
                           : { display: "none" }
                       }
-                      onClick={() => {
-                        if (user?.success) {
-                          updateViews(VideoID[index]);
-                          setTimeout(() => {
-                            window.location.href = `/video/${VideoID[index]}`;
-                          }, 400);
-                        }
-                        window.location.href = `/video/${VideoID[index]}`;
-                      }}
                     >
-                      <img
-                        style={{ width: "330px", borderRadius: "10px" }}
-                        src={element}
-                        alt="thumbnails"
-                        className="browse-thumbnails"
-                      />
-                      <p className="duration">
-                        {Math.floor(duration[index] / 60) +
-                          ":" +
-                          (Math.round(duration[index] % 60) < 10
-                            ? "0" + Math.round(duration[index] % 60)
-                            : Math.round(duration[index] % 60))}
-                      </p>
-
-                      <div
-                        className={
-                          theme === true
-                            ? "channel-basic-data"
-                            : "channel-basic-data text-light-mode"
-                        }
+                      {/* 3-dot menu button */}
+                      <button
+                        className={`browse-three-dot ${theme ? "" : "browse-three-dot-light"}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveMenu(activeMenu === index ? null : index);
+                        }}
+                        title="More options"
                       >
-                        <div className="channel-pic">
-                          <img
-                            className="channel-profile"
-                            src={ProfilePic[index]}
-                            alt="channel-profile"
-                          />
-                        </div>
-                        <div className="channel-text-data">
-                          <p className="title" style={{ marginTop: "10px" }}>
-                            {Titles[index] && Titles[index].length <= 60
-                              ? Titles[index]
-                              : `${Titles[index].slice(0, 55)}..`}
-                          </p>
-                          <div className="video-uploader">
-                            <Tooltip
-                              TransitionComponent={Zoom}
-                              title={uploader[index]}
-                              placement="top"
-                            >
-                              <p
-                                className={
-                                  theme
-                                    ? "uploader"
-                                    : "uploader text-light-mode2"
-                                }
-                                style={{ marginTop: "10px" }}
-                              >
-                                {uploader[index]}
-                              </p>
-                            </Tooltip>
-                            <Tooltip
-                              TransitionComponent={Zoom}
-                              title="Verified"
-                              placement="right"
-                            >
-                              <CheckCircleIcon
-                                fontSize="100px"
-                                style={{
-                                  color: "rgb(138, 138, 138)",
-                                  marginTop: "8px",
-                                  marginLeft: "4px",
-                                }}
-                              />
-                            </Tooltip>
+                        ⋮
+                      </button>
+                      {activeMenu === index && (
+                        <div
+                          className={`browse-card-menu ${theme ? "" : "browse-card-menu-light"}`}
+                          ref={menuRef}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <div
+                            className="browse-menu-item"
+                            onClick={() => saveToWatchLater(VideoID[index], null)}
+                          >
+                            🕐 Save to Watch Later
                           </div>
                           <div
-                            className={
-                              theme ? "view-time" : "view-time text-light-mode2"
-                            }
+                            className="browse-menu-item"
+                            onClick={() => {
+                              window.location.href = `/video/${VideoID[index]}`;
+                              setActiveMenu(null);
+                            }}
                           >
-                            <p className="views">
-                              {VideoViews[index] >= 1e9
-                                ? `${(VideoViews[index] / 1e9).toFixed(1)}B`
-                                : VideoViews[index] >= 1e6
-                                ? `${(VideoViews[index] / 1e6).toFixed(1)}M`
-                                : VideoViews[index] >= 1e3
-                                ? `${(VideoViews[index] / 1e3).toFixed(1)}K`
-                                : VideoViews[index]}{" "}
-                              views
-                            </p>
-                            <p
-                              className="upload-time"
-                              style={{ marginLeft: "4px" }}
-                            >
-                              &#x2022;{" "}
-                              {(() => {
-                                const timeDifference =
-                                  new Date() - new Date(publishDate[index]);
-                                const minutes = Math.floor(
-                                  timeDifference / 60000
-                                );
-                                const hours = Math.floor(
-                                  timeDifference / 3600000
-                                );
-                                const days = Math.floor(
-                                  timeDifference / 86400000
-                                );
-                                const weeks = Math.floor(
-                                  timeDifference / 604800000
-                                );
-                                const years = Math.floor(
-                                  timeDifference / 31536000000
-                                );
+                            ▶ Go to video
+                          </div>
+                        </div>
+                      )}
 
-                                if (minutes < 1) {
-                                  return "just now";
-                                } else if (minutes < 60) {
-                                  return `${minutes} mins ago`;
-                                } else if (hours < 24) {
-                                  return `${hours} hours ago`;
-                                } else if (days < 7) {
-                                  return `${days} days ago`;
-                                } else if (weeks < 52) {
-                                  return `${weeks} weeks ago`;
-                                } else {
-                                  return `${years} years ago`;
-                                }
-                              })()}
+                      <div
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          if (user?.success) updateViews(VideoID[index]);
+                          window.location.href = `/video/${VideoID[index]}`;
+                        }}
+                      >
+                        <img
+                          style={{ width: "330px", borderRadius: "10px" }}
+                          src={element}
+                          alt="thumbnails"
+                          className="browse-thumbnails"
+                        />
+                        <p className="duration">
+                          {Math.floor(duration[index] / 60) +
+                            ":" +
+                            (Math.round(duration[index] % 60) < 10
+                              ? "0" + Math.round(duration[index] % 60)
+                              : Math.round(duration[index] % 60))}
+                        </p>
+
+                        <div
+                          className={
+                            theme === true
+                              ? "channel-basic-data"
+                              : "channel-basic-data text-light-mode"
+                          }
+                        >
+                          <div className="channel-pic">
+                            <img
+                              className="channel-profile"
+                              src={ProfilePic[index]}
+                              alt="channel-profile"
+                            />
+                          </div>
+                          <div className="channel-text-data">
+                            <p className="title" style={{ marginTop: "10px" }}>
+                              {Titles[index] && Titles[index].length <= 60
+                                ? Titles[index]
+                                : `${Titles[index].slice(0, 55)}..`}
                             </p>
+                            <div className="video-uploader">
+                              <Tooltip TransitionComponent={Zoom} title={uploader[index]} placement="top">
+                                <p
+                                  className={theme ? "uploader" : "uploader text-light-mode2"}
+                                  style={{ marginTop: "10px" }}
+                                >
+                                  {uploader[index]}
+                                </p>
+                              </Tooltip>
+                              <Tooltip TransitionComponent={Zoom} title="Verified" placement="right">
+                                <CheckCircleIcon
+                                  fontSize="100px"
+                                  style={{ color: "rgb(138, 138, 138)", marginTop: "8px", marginLeft: "4px" }}
+                                />
+                              </Tooltip>
+                            </div>
+                            <div className={theme ? "view-time" : "view-time text-light-mode2"}>
+                              <p className="views">
+                                {VideoViews[index] >= 1e9
+                                  ? `${(VideoViews[index] / 1e9).toFixed(1)}B`
+                                  : VideoViews[index] >= 1e6
+                                    ? `${(VideoViews[index] / 1e6).toFixed(1)}M`
+                                    : VideoViews[index] >= 1e3
+                                      ? `${(VideoViews[index] / 1e3).toFixed(1)}K`
+                                      : VideoViews[index]}{" "}
+                                views
+                              </p>
+                              <p className="upload-time" style={{ marginLeft: "4px" }}>
+                                &#x2022;{" "}
+                                {(() => {
+                                  const diff = new Date() - new Date(publishDate[index]);
+                                  const mins = Math.floor(diff / 60000);
+                                  const hrs = Math.floor(diff / 3600000);
+                                  const days = Math.floor(diff / 86400000);
+                                  const wks = Math.floor(diff / 604800000);
+                                  const yrs = Math.floor(diff / 31536000000);
+                                  if (mins < 1) return "just now";
+                                  if (mins < 60) return `${mins} mins ago`;
+                                  if (hrs < 24) return `${hrs} hours ago`;
+                                  if (days < 7) return `${days} days ago`;
+                                  if (wks < 52) return `${wks} weeks ago`;
+                                  return `${yrs} years ago`;
+                                })()}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -479,13 +501,13 @@ function Browse() {
               style={
                 menuClicked === true
                   ? {
-                      paddingRight: "50px",
-                      display: TagsSelected !== "All" ? "grid" : "none",
-                    }
+                    paddingRight: "50px",
+                    display: TagsSelected !== "All" ? "grid" : "none",
+                  }
                   : {
-                      paddingRight: "0px",
-                      display: TagsSelected !== "All" ? "grid" : "none",
-                    }
+                    paddingRight: "0px",
+                    display: TagsSelected !== "All" ? "grid" : "none",
+                  }
               }
             >
               {FilteredVideos &&
@@ -574,10 +596,10 @@ function Browse() {
                               {element.views >= 1e9
                                 ? `${(element.views / 1e9).toFixed(1)}B`
                                 : element.views >= 1e6
-                                ? `${(element.views / 1e6).toFixed(1)}M`
-                                : element.views >= 1e3
-                                ? `${(element.views / 1e3).toFixed(1)}K`
-                                : element.views}{" "}
+                                  ? `${(element.views / 1e6).toFixed(1)}M`
+                                  : element.views >= 1e3
+                                    ? `${(element.views / 1e3).toFixed(1)}K`
+                                    : element.views}{" "}
                               views
                             </p>
                             <p

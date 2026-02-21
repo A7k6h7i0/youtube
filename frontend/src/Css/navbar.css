@@ -1,10 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Geologica:wght@600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap");
+
+/* === StreamVault Design Tokens === */
+:root {
+  --sv-bg: #0A0A0F;
+  --sv-surface: #111118;
+  --sv-surface2: #1A1A28;
+  --sv-border: rgba(139, 92, 246, 0.18);
+  --sv-purple: #7C3AED;
+  --sv-cyan: #06B6D4;
+  --sv-gold: #F59E0B;
+  --sv-gradient: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
+  --sv-gradient-r: linear-gradient(135deg, #06B6D4 0%, #7C3AED 100%);
+  --sv-text: #F1F0FF;
+  --sv-text-muted: #8B8AAA;
+  --sv-hover: rgba(124, 58, 237, 0.12);
+  --sv-radius: 12px;
+  --sv-shadow: 0 8px 32px rgba(124, 58, 237, 0.15);
+}
 
 * {
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 *::-webkit-scrollbar {
@@ -12,29 +28,31 @@
 }
 
 .navbar {
-  padding: 10px;
-  padding-left: 25px;
+  padding: 10px 25px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #0f0f0f;
+  background: var(--sv-bg);
+  border-bottom: 1px solid var(--sv-border);
   position: fixed;
   z-index: 4;
   width: -webkit-fill-available;
+  backdrop-filter: blur(12px);
+  height: 56px;
+  box-sizing: border-box;
 }
 
 .navbar2 {
-  padding: 10px;
-  padding-left: 25px;
+  padding: 10px 25px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #282828;
+  background: var(--sv-surface);
+  border-bottom: 1px solid var(--sv-border);
   position: fixed;
   z-index: 3;
   width: -webkit-fill-available;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  box-shadow: 0 4px 24px rgba(124, 58, 237, 0.1);
 }
 
 .left-bar,
@@ -54,17 +72,25 @@
 
 .youtubeLogo,
 .youtubeLogo2 {
-  width: 110px;
+  height: 48px;
+  width: auto;
   cursor: pointer;
-  padding-left: 30px;
-  object-fit: cover;
+  padding-left: 12px;
+  object-fit: contain;
 }
 
 .search {
-  background-color: #0f0f0f;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
   border-radius: 25px;
   width: 45vw;
-  border: 0.5px solid rgba(255, 255, 255, 0.351);
+  border: 1px solid var(--sv-border);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search:focus-within {
+  border-color: var(--sv-purple);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
 }
 
 .search2 {
@@ -108,13 +134,17 @@
 .search-icon {
   cursor: pointer;
   padding-right: 10px;
-  background-color: #3d3f4365;
+  background: rgba(124, 58, 237, 0.18);
   border-radius: inherit;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  padding: 6px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 8px 16px;
+  color: var(--sv-cyan);
+  transition: background 0.15s ease;
+}
+
+.search-icon:hover {
+  background: rgba(124, 58, 237, 0.35);
 }
 
 .search-light-icon {
@@ -152,16 +182,14 @@
 }
 
 #searchType {
-  background-color: #0f0f0f;
-  color: white;
+  background: transparent;
+  color: var(--sv-text);
   border-radius: 25px;
   border: none;
   outline: none;
   width: 45vw;
-  font-size: 16px;
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+  font-size: 15px;
+  padding: 10px 20px;
 }
 
 #searchType-light-mode {
@@ -223,23 +251,26 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  background-color: #0f0f0f;
-  border: 1px solid rgb(0, 162, 255);
-  color: rgb(0, 162, 255);
+  background: var(--sv-gradient);
+  border: none;
+  color: white;
   margin-left: 10px;
-  padding: 8px;
-  padding-left: 10px;
-  font-size: 16px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
   border-radius: 25px;
-  transition: all 0.15s ease;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 2px 12px rgba(124, 58, 237, 0.35);
 }
-.signin > p {
+
+.signin>p {
   padding-left: 7px;
   padding-right: 3px;
 }
 
 .signin:hover {
-  background-color: #3d3f43;
+  opacity: 0.88;
+  transform: scale(1.03);
 }
 
 .icon-btns {
@@ -252,27 +283,30 @@
   color: white !important;
   background-color: #3d3f4365;
 }
+
 .auth-popup {
   position: fixed;
   z-index: 10;
-  color: white;
-  background-color: #1e1f20;
-  padding: 100px;
-  padding-top: 85px;
-  padding-bottom: 85px;
+  color: var(--sv-text);
+  background: var(--sv-surface);
+  border: 1px solid var(--sv-border);
+  box-shadow: var(--sv-shadow);
+  padding: 60px 80px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 10px;
-  max-width: 500px;
+  border-radius: 20px;
+  max-width: 480px;
   animation: fadeUp 0.25s ease forwards;
   opacity: 0;
 }
+
 @keyframes fadeUp {
   from {
     transform: translate(-50%, -50%) translateY(50px);
     opacity: 0;
   }
+
   to {
     transform: translate(-50%, -50%);
     opacity: 1;
@@ -286,13 +320,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 7; /* Set a lower z-index than the auth-popup */
+  z-index: 7;
+  /* Set a lower z-index than the auth-popup */
   animation: Fade 0.25s ease-out forwards;
 }
 
 @keyframes Fade {
-  from {
-  }
+  from {}
+
   to {
     background: rgba(0, 0, 0, 0.836);
   }
@@ -305,13 +340,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 7; /* Set a lower z-index than the auth-popup */
+  z-index: 7;
+  /* Set a lower z-index than the auth-popup */
   animation: Fade2 0.25s ease-out forwards;
 }
 
 @keyframes Fade2 {
-  from {
-  }
+  from {}
+
   to {
     background: rgba(0, 0, 0, 0.68);
   }
@@ -322,9 +358,14 @@
 }
 
 .signup-head {
-  font-size: 35px;
-  font-family: "Geologica", sans-serif;
+  font-size: 32px;
+  font-family: "Outfit", sans-serif;
+  background: var(--sv-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
 .signup-desc {
   margin-top: 15px;
   font-weight: lighter;
@@ -339,18 +380,23 @@ form {
   margin-top: 30px;
 }
 
-form > input {
-  background-color: #3d3f4359;
+form>input {
+  background: rgba(139, 92, 246, 0.06);
   outline: none;
-  height: 35px;
-  padding: 10px;
-  color: white;
+  height: 38px;
+  padding: 10px 14px;
+  color: var(--sv-text);
   margin-bottom: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.27);
-  border-radius: 5px;
+  border: 1px solid var(--sv-border);
+  border-radius: 8px;
+  transition: border-color 0.2s ease;
 }
 
-form > input::placeholder {
+form>input:focus {
+  border-color: var(--sv-purple);
+}
+
+form>input::placeholder {
   color: rgba(255, 255, 255, 0.59);
 }
 
@@ -383,24 +429,28 @@ form > input::placeholder {
 
 .signup-btn {
   cursor: pointer;
-  background-color: #c00;
+  background: var(--sv-gradient);
   color: white;
   border: none;
-  font-family: "Geologica", sans-serif;
-  font-size: 18px;
+  font-family: "Outfit", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
   outline: none;
-  height: 60px;
+  height: 52px;
   margin-top: 20px;
-  border-radius: 5px;
-  transition: all 0.2s ease;
+  border-radius: var(--sv-radius);
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
+  letter-spacing: 0.3px;
 }
 
 .signup-btn:hover {
-  transform: scale(1.04);
+  opacity: 0.88;
+  transform: scale(1.03);
 }
 
 .signup-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.97);
 }
 
 .already {
@@ -410,13 +460,18 @@ form > input::placeholder {
   margin-top: 25px;
 }
 
-.already > p:nth-child(1) {
+.already>p:nth-child(1) {
   color: gray;
 }
 
-.already > p:nth-child(2) {
+.already>p:nth-child(2) {
   cursor: pointer;
   margin-left: 5px;
+  background: var(--sv-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
 }
 
 .profile-pic {
@@ -471,7 +526,7 @@ form > input::placeholder {
   color: white !important;
 }
 
-.create-btn > p {
+.create-btn>p {
   color: white;
   padding-left: 10px;
   font-size: 15px;
@@ -562,19 +617,20 @@ form > input::placeholder {
   right: 10px;
 }
 
-.searchvid-data > p:nth-child(2) {
+.searchvid-data>p:nth-child(2) {
   color: #aaa;
   margin-top: 8px;
   width: 68%;
 }
-.searchvid-date > p {
+
+.searchvid-date>p {
   font-size: 13px;
   width: max-content;
   position: relative;
   top: 5px;
 }
 
-.searchvid-date > p:nth-child(2) {
+.searchvid-date>p:nth-child(2) {
   color: #aaa;
   margin-top: 6px;
 }
@@ -598,7 +654,8 @@ form > input::placeholder {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 5; /* Set a lower z-index than the auth-popup */
+  z-index: 5;
+  /* Set a lower z-index than the auth-popup */
   animation: Fade2 0.25s ease-out forwards;
 }
 
@@ -634,7 +691,7 @@ form > input::placeholder {
   justify-content: space-between;
 }
 
-.allsearch-video-data:hover .searchvid-data > p:nth-child(2) {
+.allsearch-video-data:hover .searchvid-data>p:nth-child(2) {
   display: none;
 }
 
@@ -654,7 +711,7 @@ form > input::placeholder {
   color: gray !important;
 }
 
-.searchvid-data > p:nth-child(1):hover {
+.searchvid-data>p:nth-child(1):hover {
   text-decoration: underline;
 }
 
@@ -663,7 +720,8 @@ form > input::placeholder {
 }
 
 .new-searchbar {
-  display: none; /*flex*/
+  display: none;
+  /*flex*/
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -672,16 +730,15 @@ form > input::placeholder {
   height: 100%;
   backdrop-filter: blur(8px);
   background: rgb(127, 127, 127);
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.436) 0%,
-    rgba(0, 0, 0, 1) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.436) 0%,
+      rgba(0, 0, 0, 1) 100%);
   animation: BG_FADE 0.4s ease;
 }
 
 .new-searchbar2 {
-  display: none; /*flex*/
+  display: none;
+  /*flex*/
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -690,11 +747,9 @@ form > input::placeholder {
   height: 100%;
   backdrop-filter: blur(8px);
   background: rgb(127, 127, 127);
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.436) 0%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.436) 0%,
+      rgba(0, 0, 0, 0) 100%);
   animation: BG_FADE 0.4s ease;
 }
 
@@ -709,7 +764,8 @@ form > input::placeholder {
 }
 
 .new-searchbar-component {
-  display: none; /*flex*/
+  display: none;
+  /*flex*/
   align-items: center;
   background-color: #43434379;
   backdrop-filter: blur(30px);
@@ -806,18 +862,20 @@ form > input::placeholder {
   }
 }
 
-@media (width<= 1100px) {
+@media (width<=1100px) {
+
   #searchType2,
   .search2 {
     width: 52vw;
   }
+
   .nav-search-results,
   .nav-search-results2 {
     width: 52.4vw;
   }
 }
 
-@media (width<= 1000px) {
+@media (width<=1000px) {
   .auth-popup {
     width: 65vw !important;
     padding-left: 8% !important;
@@ -829,38 +887,45 @@ form > input::placeholder {
   .middle-bar {
     display: none;
   }
+
   .second-search {
     display: block !important;
   }
 }
 
-@media (width<= 915px) {
+@media (width<=915px) {
   .middle-bar2 {
     display: none;
   }
+
   .studio-searchh {
     display: block;
   }
+
   .right-bar2 {
     align-items: center;
     justify-content: space-between;
     width: 110px;
   }
+
   .sk-right-bar2 {
     width: auto !important;
   }
 }
 
-@media (width<= 860px) {
+@media (width<=860px) {
   .menu2 {
     display: none !important;
   }
+
   .navbar2 {
     padding: 13px;
   }
+
   .youtubeLogo2 {
     padding-left: 10px;
   }
+
   .right-bar2 {
     margin-right: 12px !important;
   }
@@ -873,67 +938,84 @@ form > input::placeholder {
 }
 
 @media (max-width: 650px) {
+
   .menu,
   .menu-light {
     display: none !important;
   }
+
   .youtubeLogo {
     padding-left: 0;
   }
+
   .videocreate,
   .video-light {
     display: none !important;
   }
+
   .right-bar {
     width: 110px;
     justify-content: space-between !important;
     padding-right: 10px !important;
   }
+
   .profile-pic,
   .sk-profile {
     width: 35px !important;
     height: 35px !important;
   }
-  .signin > p {
+
+  .signin>p {
     display: none;
   }
+
   .signin {
     border: none;
   }
+
   .user-avatar {
     font-size: xx-large !important;
   }
+
   .signup-head {
     font-size: 28px;
   }
+
   .signup-desc {
     font-size: 14.5px;
   }
+
   .already {
     font-size: 14.5px;
   }
+
   .forgot-password {
     font-size: 12.5px;
   }
+
   .create-btn {
     display: none !important;
   }
+
   .create-btn-short {
     display: flex !important;
   }
 }
 
-@media (width<= 600px) {
+@media (width<=600px) {
   .allsearch-video-data {
     flex-direction: column;
     padding-bottom: 15px;
   }
+
   .searchvid-date {
     margin-top: 15px;
   }
+
   .mobile-search-data {
     height: 400px !important;
   }
+
   .my-five-videos {
     height: 92% !important;
   }
@@ -945,88 +1027,106 @@ form > input::placeholder {
     right: 10px;
     font-size: 1.8rem !important;
   }
+
   .auth-popup {
     padding-top: 12%;
     padding-bottom: 12%;
   }
+
   .signup-form,
   form {
     margin-top: 15px;
   }
+
   .signup-head,
-  .top-reset > p:nth-child(1) {
+  .top-reset>p:nth-child(1) {
     font-size: 24px !important;
   }
-  .top-reset > p:nth-child(2) {
+
+  .top-reset>p:nth-child(2) {
     font-size: 12.5px !important;
   }
 
-  .reset-option > form {
+  .reset-option>form {
     margin-top: 26px !important;
   }
 
   .signup-desc {
     font-size: 12.5px;
   }
+
   .signup-btn {
     font-size: 15px;
     height: 50px;
   }
-  form > input {
+
+  form>input {
     height: 28px;
   }
 }
 
-@media (width<= 470px) {
+@media (width<=470px) {
   .searchdata-one {
     flex-direction: column;
   }
+
   .searchvid-data {
     right: 0px;
     top: 0px;
   }
+
   .searchvid-duration {
     top: -24px;
     left: 87.6%;
   }
+
   .searching-thumbnail {
     width: 100%;
     height: auto;
   }
+
   .mobile-search-data {
     height: 520px !important;
   }
+
   .searchvid-edit-section {
     top: 15px;
   }
+
   .searchvid-date {
     margin-top: 25px;
   }
 }
 
-@media (width <= 380px) {
+@media (width <=380px) {
   .right-bar {
     width: 88px;
   }
+
   .auth-popup {
     width: 85vw !important;
     padding-top: 18%;
     padding-bottom: 18%;
   }
+
   .cancel {
     top: 15px;
     right: 15px;
   }
+
   .already {
     font-size: 13.8px;
   }
+
   .searchvid-duration {
     left: 84.6%;
   }
+
   .search2-new,
   #searchType2-new {
     width: 90vw !important;
   }
+
   .mobile-search-data {
     width: 90.6vw !important;
   }

@@ -562,6 +562,55 @@ function VideoSection() {
     }, 1500);
   }, []);
 
+  //KEYBOARD SHORTCUTS (k/Space=play-pause, j=-10s, l=+10s, m=mute, f=fullscreen, arrows=volume)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      const tag = document.activeElement?.tagName?.toLowerCase();
+      if (tag === "input" || tag === "textarea" || document.activeElement?.contentEditable === "true") return;
+      const video = videoRef.current;
+      if (!video) return;
+      switch (e.key.toLowerCase()) {
+        case "k":
+        case " ":
+          e.preventDefault();
+          video.paused ? video.play() : video.pause();
+          break;
+        case "j":
+          e.preventDefault();
+          video.currentTime = Math.max(0, video.currentTime - 10);
+          break;
+        case "l":
+          e.preventDefault();
+          video.currentTime = Math.min(video.duration || Infinity, video.currentTime + 10);
+          break;
+        case "m":
+          e.preventDefault();
+          video.muted = !video.muted;
+          break;
+        case "f":
+          e.preventDefault();
+          if (!document.fullscreenElement) {
+            video.requestFullscreen?.();
+          } else {
+            document.exitFullscreen?.();
+          }
+          break;
+        case "arrowup":
+          e.preventDefault();
+          video.volume = Math.min(1, video.volume + 0.1);
+          break;
+        case "arrowdown":
+          e.preventDefault();
+          video.volume = Math.max(0, video.volume - 0.1);
+          break;
+        default:
+          break;
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   //POST REQUESTS
 
   const uploadComment = async () => {
@@ -1119,9 +1168,8 @@ function VideoSection() {
                   className={
                     theme
                       ? "subscribe"
-                      : `subscribe-light ${
-                          user?.email === usermail ? "dull-subs" : ""
-                        }`
+                      : `subscribe-light ${user?.email === usermail ? "dull-subs" : ""
+                      }`
                   }
                   disabled={user?.email === usermail ? true : false}
                   onClick={() => {
@@ -1756,10 +1804,10 @@ function VideoSection() {
                 {views >= 1e9
                   ? `${(views / 1e9).toFixed(1)}B`
                   : views >= 1e6
-                  ? `${(views / 1e6).toFixed(1)}M`
-                  : views >= 1e3
-                  ? `${(views / 1e3).toFixed(1)}K`
-                  : views}{" "}
+                    ? `${(views / 1e6).toFixed(1)}M`
+                    : views >= 1e3
+                      ? `${(views / 1e3).toFixed(1)}K`
+                      : views}{" "}
                 views
               </p>
               <p style={{ marginLeft: "10px" }}>
@@ -2047,10 +2095,10 @@ function VideoSection() {
                               style={
                                 user?.email === usermail
                                   ? {
-                                      color: theme ? "white" : "black",
-                                      marginLeft: "20px",
-                                      cursor: "pointer",
-                                    }
+                                    color: theme ? "white" : "black",
+                                    marginLeft: "20px",
+                                    cursor: "pointer",
+                                  }
                                   : { display: "none" }
                               }
                               className="heart-comment"
@@ -2091,7 +2139,7 @@ function VideoSection() {
                           )}
 
                           {element.user_email === user?.email ||
-                          user?.email === usermail ? (
+                            user?.email === usermail ? (
                             <button
                               className={
                                 theme
@@ -2125,9 +2173,8 @@ function VideoSection() {
                 <div
                   className={
                     TagSelected === "All"
-                      ? `top-tags tag-one ${
-                          theme ? "tag-color" : "tag-color-light"
-                        }`
+                      ? `top-tags tag-one ${theme ? "tag-color" : "tag-color-light"
+                      }`
                       : `top-tags tag-one ${theme ? "" : "tagcolor-newlight"}`
                   }
                 >
@@ -2136,9 +2183,8 @@ function VideoSection() {
                 <div
                   className={
                     TagSelected === uploader
-                      ? `top-tags tag-two ${
-                          theme ? "tag-color" : "tag-color-light"
-                        }`
+                      ? `top-tags tag-two ${theme ? "tag-color" : "tag-color-light"
+                      }`
                       : `top-tags tag-two ${theme ? "" : "tagcolor-newlight"}`
                   }
                   style={{ marginLeft: "10px" }}
@@ -2208,9 +2254,8 @@ function VideoSection() {
             <div
               className={
                 TagSelected === "All"
-                  ? `top-tags tag-one ${
-                      theme ? "tag-color" : "tag-color-light"
-                    }`
+                  ? `top-tags tag-one ${theme ? "tag-color" : "tag-color-light"
+                  }`
                   : `top-tags tag-one ${theme ? "" : "tagcolor-newlight"}`
               }
             >
@@ -2219,9 +2264,8 @@ function VideoSection() {
             <div
               className={
                 TagSelected === uploader
-                  ? `top-tags tag-two ${
-                      theme ? "tag-color" : "tag-color-light"
-                    }`
+                  ? `top-tags tag-two ${theme ? "tag-color" : "tag-color-light"
+                  }`
                   : `top-tags tag-two ${theme ? "" : "tagcolor-newlight"}`
               }
               style={{ marginLeft: "10px" }}
@@ -2320,10 +2364,10 @@ function VideoSection() {
                           {Views[index] >= 1e9
                             ? `${(Views[index] / 1e9).toFixed(1)}B`
                             : Views[index] >= 1e6
-                            ? `${(Views[index] / 1e6).toFixed(1)}M`
-                            : Views[index] >= 1e3
-                            ? `${(Views[index] / 1e3).toFixed(1)}K`
-                            : Views[index]}{" "}
+                              ? `${(Views[index] / 1e6).toFixed(1)}M`
+                              : Views[index] >= 1e3
+                                ? `${(Views[index] / 1e3).toFixed(1)}K`
+                                : Views[index]}{" "}
                           views
                         </p>
                         <p
@@ -2447,10 +2491,10 @@ function VideoSection() {
                           {Views[index] >= 1e9
                             ? `${(Views[index] / 1e9).toFixed(1)}B`
                             : Views[index] >= 1e6
-                            ? `${(Views[index] / 1e6).toFixed(1)}M`
-                            : Views[index] >= 1e3
-                            ? `${(Views[index] / 1e3).toFixed(1)}K`
-                            : Views[index]}{" "}
+                              ? `${(Views[index] / 1e6).toFixed(1)}M`
+                              : Views[index] >= 1e3
+                                ? `${(Views[index] / 1e3).toFixed(1)}K`
+                                : Views[index]}{" "}
                           views
                         </p>
                         <p
@@ -2582,10 +2626,10 @@ function VideoSection() {
                           {element.views >= 1e9
                             ? `${(element.views / 1e9).toFixed(1)}B`
                             : element.views >= 1e6
-                            ? `${(element.views / 1e6).toFixed(1)}M`
-                            : element.views >= 1e3
-                            ? `${(element.views / 1e3).toFixed(1)}K`
-                            : element.views}{" "}
+                              ? `${(element.views / 1e6).toFixed(1)}M`
+                              : element.views >= 1e3
+                                ? `${(element.views / 1e3).toFixed(1)}K`
+                                : element.views}{" "}
                           views
                         </p>
                         <p
@@ -2710,10 +2754,10 @@ function VideoSection() {
                           {element.views >= 1e9
                             ? `${(element.views / 1e9).toFixed(1)}B`
                             : element.views >= 1e6
-                            ? `${(element.views / 1e6).toFixed(1)}M`
-                            : element.views >= 1e3
-                            ? `${(element.views / 1e3).toFixed(1)}K`
-                            : element.views}{" "}
+                              ? `${(element.views / 1e6).toFixed(1)}M`
+                              : element.views >= 1e3
+                                ? `${(element.views / 1e3).toFixed(1)}K`
+                                : element.views}{" "}
                           views
                         </p>
                         <p
@@ -2962,10 +3006,10 @@ function VideoSection() {
                               style={
                                 user?.email === usermail
                                   ? {
-                                      color: theme ? "white" : "black",
-                                      marginLeft: "20px",
-                                      cursor: "pointer",
-                                    }
+                                    color: theme ? "white" : "black",
+                                    marginLeft: "20px",
+                                    cursor: "pointer",
+                                  }
                                   : { display: "none" }
                               }
                               className="heart-comment"
@@ -3006,7 +3050,7 @@ function VideoSection() {
                           )}
 
                           {element.user_email === user?.email ||
-                          user?.email === usermail ? (
+                            user?.email === usermail ? (
                             <button
                               className={
                                 theme
@@ -3142,7 +3186,7 @@ function VideoSection() {
           }
         >
           {!UserPlaylist ||
-          UserPlaylist.includes("No playlists available...") ? (
+            UserPlaylist.includes("No playlists available...") ? (
             <p>No Playlists available...</p>
           ) : (
             ""
@@ -3158,7 +3202,7 @@ function VideoSection() {
                     {(playlistID &&
                       playlistID.length > 0 &&
                       playlistID.includes(element._id) === false) ||
-                    playlistID === "Video doesn't exist in any playlist" ? (
+                      playlistID === "Video doesn't exist in any playlist" ? (
                       <CheckBoxOutlineBlankIcon
                         className="tick-box"
                         fontSize="medium"
