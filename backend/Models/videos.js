@@ -42,6 +42,21 @@ const VideoData = new mongoose.Schema({
       }
     },
   },
+  // Creator ID reference
+  creator_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'userData',
+  },
+  // CPM rate for the video (default ₹100)
+  cpm: {
+    type: Number,
+    default: 100,
+  },
+  // Monetization enabled
+  isMonetized: {
+    type: Boolean,
+    default: false,
+  },
   VideoData: {
     type: [
       {
@@ -95,6 +110,20 @@ const VideoData = new mongoose.Schema({
         comments: {
           type: [Comment],
           default: [],
+        },
+        // Monetization fields
+        total_revenue: {
+          type: Number,
+          default: 0,
+        },
+        total_views: {
+          type: Number,
+          default: 0,
+        },
+        // Track monetized views (1 per user per 24h)
+        monetized_views: {
+          type: Number,
+          default: 0,
         },
       },
     ],

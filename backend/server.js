@@ -3,11 +3,12 @@ const cors = require("cors");
 const router = require("./Router/router");
 const path = require("path");
 const bodyParser = require("body-parser");
+const http = require("http");
 const videodata = require("./Models/videos");
 const TrendingData = require("./Models/trending");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const initialPort = Number(process.env.PORT) || 3000;
 app.set("trust proxy", 1);
 
 // ✅ Enable CORS (ONLY ONCE)
@@ -150,8 +151,26 @@ const seedDemoVideos = async () => {
 };
 
 // Start server and seed if needed
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-  // Seed demo videos after a short delay to ensure DB is connected
-  setTimeout(seedDemoVideos, 2000);
-});
+const startServer = (port) => {
+  const server = http.createServer(app);
+
+  server.on("error", (error) => {
+    if (error.code === "EADDRINUSE") {
+      const nextPort = port + 1;
+      console.warn(`Port ${port} is in use. Retrying on port ${nextPort}...`);
+      startServer(nextPort);
+      return;
+    }
+
+    console.error("Server startup error:", error);
+    process.exit(1);
+  });
+
+  server.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+    // Seed demo videos after a short delay to ensure DB is connected
+    setTimeout(seedDemoVideos, 2000);
+  });
+};
+
+startServer(initialPort);

@@ -1,0 +1,259 @@
+.premium-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(9, 19, 40, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(7px);
+}
+
+.premium-container {
+  background: linear-gradient(155deg, #ffffff 0%, #f3f8ff 65%, #eaf2ff 100%);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 450px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 24px 70px rgba(9, 37, 92, 0.22);
+  border: 1px solid rgba(41, 113, 255, 0.24);
+}
+
+.premium-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #3f5b8c;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.premium-close:hover {
+  background: rgba(25, 101, 255, 0.1);
+  color: #1149b7;
+}
+
+.premium-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.premium-star {
+  font-size: 60px !important;
+  color: #ffd700 !important;
+  margin-bottom: 15px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.premium-header h1 {
+  color: #0f2857;
+  font-size: 28px;
+  margin: 0 0 10px 0;
+  font-weight: 700;
+}
+
+.premium-header p {
+  color: #5370a3;
+  font-size: 14px;
+  margin: 0;
+}
+
+.premium-benefits {
+  background: linear-gradient(145deg, #ffffff 0%, #f3f7ff 100%);
+  border: 1px solid rgba(41, 113, 255, 0.16);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.premium-benefits h3 {
+  color: #16386f;
+  font-size: 16px;
+  margin: 0 0 15px 0;
+}
+
+.premium-benefits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.premium-benefits li {
+  color: #355585;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.premium-plans {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.premium-plan-card {
+  position: relative;
+  border: 1px solid rgba(58, 122, 255, 0.24);
+  background: linear-gradient(145deg, #ffffff 0%, #f5f9ff 100%);
+  border-radius: 10px;
+  padding: 12px 10px;
+  color: #2e4f83;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.premium-plan-card.active {
+  border-color: #1b63ff;
+  background: linear-gradient(145deg, #eaf2ff 0%, #dfeaff 100%);
+  box-shadow: 0 10px 24px rgba(30, 96, 233, 0.2);
+}
+
+.premium-plan-card:hover {
+  transform: translateY(-2px);
+}
+
+.premium-plan-badge {
+  position: absolute;
+  top: -10px;
+  right: 8px;
+  background: #ffd700;
+  color: #111;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 3px 7px;
+}
+
+.premium-plan-name {
+  color: #0d2c61;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.premium-plan-price {
+  color: #0d2c61;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 2px;
+}
+
+.premium-plan-subtext {
+  color: #5373a8;
+  font-size: 12px;
+  margin: 0;
+}
+
+.premium-payment-options {
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.premium-payment-options p {
+  color: #4c6fa8;
+  font-size: 12px;
+  margin: 0;
+}
+
+.premium-button {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(90deg, #2a7bff 0%, #1450c8 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.premium-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(20, 80, 200, 0.32);
+}
+
+.premium-button:disabled {
+  background: #97acd4;
+  cursor: not-allowed;
+}
+
+.premium-login-message {
+  text-align: center;
+  color: #295bb5;
+  font-size: 14px;
+}
+
+.premium-footer {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.premium-footer p {
+  color: #5d77a3;
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.premium-cancel {
+  color: #2f8f44 !important;
+}
+
+.premium-active {
+  text-align: center;
+  padding: 20px;
+}
+
+.premium-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(90deg, #ffd700 0%, #ffaa00 100%);
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.premium-expiry {
+  color: #4d6fa4;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.premium-expiry strong {
+  color: #15366b;
+}
+
+.premium-loading {
+  text-align: center;
+  color: #1a3f7a;
+  padding: 50px;
+}
+
+@media (max-width: 720px) {
+  .premium-plans {
+    grid-template-columns: 1fr;
+  }
+}

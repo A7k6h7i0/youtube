@@ -179,7 +179,7 @@ auth.post("/resetlink", async (req, res) => {
     const resetToken = jwt.sign({ email }, process.env.SECRET_KEY, {
       expiresIn: "30m",
     });
-    const resetLink = `${process.env.BACKEND_URL}/${user?._id}/${resetToken}`;
+    const resetLink = `${process.env.BACKEND_URL}/reset/${user?._id}/${resetToken}`;
 
     // Nodemailer configuration
     const transporter = nodemailer.createTransport({

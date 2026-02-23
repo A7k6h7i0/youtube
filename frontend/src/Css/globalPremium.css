@@ -1,0 +1,203 @@
+:root {
+  --pg-bg: #edf4ff;
+  --pg-bg-soft: #f5f9ff;
+  --pg-surface: #ffffff;
+  --pg-surface-alt: #f3f8ff;
+  --pg-border: rgba(34, 97, 224, 0.18);
+  --pg-text: #132a56;
+  --pg-text-muted: #5b76a5;
+  --pg-primary: #2a7bff;
+  --pg-primary-dark: #1450c8;
+  --pg-shadow: 0 10px 35px rgba(30, 73, 156, 0.12);
+}
+
+html,
+body,
+#root {
+  background: radial-gradient(circle at top, #fafdff 0%, var(--pg-bg) 58%, #e7f0ff 100%) !important;
+  color: var(--pg-text) !important;
+}
+
+* {
+  scrollbar-color: rgba(42, 123, 255, 0.35) transparent;
+}
+
+.dark-mode,
+.light-mode {
+  background-color: var(--pg-bg-soft) !important;
+  color: var(--pg-text) !important;
+}
+
+.text-light-mode,
+.text-dark-mode {
+  color: var(--pg-text) !important;
+}
+
+.text-light-mode2 {
+  color: var(--pg-text-muted) !important;
+}
+
+.navbar,
+.navbar2,
+.popular-categories,
+.main-left-section,
+.main-left-section-new,
+.main-section2,
+.horizontal-panel,
+.studio-horizontal-menu,
+.search,
+.search2,
+.search2-new,
+.nav-search-results,
+.nav-search-results2,
+.account-pop,
+.account-pop2,
+.auth-popup,
+.ac-pop,
+.secondary-panel,
+.main-video-section,
+.main-video-section2,
+.liked-video-data,
+.liked-video-data-new,
+.browse-data,
+.browse-data2,
+.browse,
+.error-page,
+.library,
+.library-page,
+.channel-page,
+.trending-main,
+.subscriptions-main {
+  background: var(--pg-surface) !important;
+  color: var(--pg-text) !important;
+  border-color: var(--pg-border) !important;
+  box-shadow: var(--pg-shadow);
+}
+
+[class*="panel"],
+[class*="menu"],
+[class*="popup"],
+[class*="analytics"],
+[class*="dashboard"],
+[class*="comments"],
+[class*="playlist"] {
+  border-color: var(--pg-border) !important;
+}
+
+input,
+textarea,
+select {
+  background: #ffffff !important;
+  color: var(--pg-text) !important;
+  border: 1px solid var(--pg-border) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #7e94bb !important;
+}
+
+button,
+.signin,
+.signup-btn,
+.subscribe,
+.uploadnewone-video,
+.save-customize,
+.manage-videos,
+.customize-channel,
+.copy-light {
+  background: linear-gradient(90deg, var(--pg-primary) 0%, var(--pg-primary-dark) 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 8px 24px rgba(20, 80, 200, 0.22) !important;
+}
+
+button:hover,
+.signin:hover,
+.signup-btn:hover,
+.subscribe:hover,
+.uploadnewone-video:hover,
+.save-customize:hover,
+.manage-videos:hover,
+.customize-channel:hover,
+.copy-light:hover {
+  filter: brightness(1.03);
+}
+
+.top-tags,
+.browse-card-menu,
+.browse-menu-item,
+.feature-light,
+.feature-light2,
+.feature-light3,
+.preview-light,
+.preview-light2,
+.add-social-light,
+.social-lightt,
+.btn-light-mode {
+  background: var(--pg-surface-alt) !important;
+  color: var(--pg-text) !important;
+  border-color: var(--pg-border) !important;
+}
+
+.uploader,
+.uploader2,
+.view-time > p,
+.view-time23 > p,
+.forgot-password,
+.signup-desc,
+.channel-subs,
+.premium-footer p {
+  color: var(--pg-text-muted) !important;
+}
+
+.menu:hover,
+.menu2:hover,
+.icon-btns:hover,
+.video-light:hover,
+.menu-light:hover {
+  background-color: rgba(42, 123, 255, 0.12) !important;
+  color: var(--pg-primary-dark) !important;
+}
+
+/* Left panel icon visibility + blue selected states */
+.main-left-section .sec-data svg,
+.main-left-section-new .sec-data svg,
+.main-left-section .my-playlist-data svg,
+.main-left-section-new .my-playlist-data svg,
+.horizontal-panel .hor-icons,
+.horizontal-panel .addvid-icon {
+  color: var(--pg-primary-dark) !important;
+}
+
+.changeBG,
+.changeBG-light {
+  background: linear-gradient(90deg, var(--pg-primary) 0%, var(--pg-primary-dark) 100%) !important;
+  color: #ffffff !important;
+}
+
+.changeBG p,
+.changeBG-light p,
+.changeBG svg,
+.changeBG-light svg {
+  color: #ffffff !important;
+}
+
+/* Category chips selected state = premium blue */
+.tag-color,
+.tag-color-light,
+.tagcolor-newlight {
+  background: linear-gradient(90deg, var(--pg-primary) 0%, var(--pg-primary-dark) 100%) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 8px 20px rgba(20, 80, 200, 0.28) !important;
+}
+
+.duration,
+.durationn2,
+.durationn3,
+.searchvid-duration,
+.myvideo-duration {
+  background-color: rgba(13, 36, 83, 0.85) !important;
+  color: #ffffff !important;
+}

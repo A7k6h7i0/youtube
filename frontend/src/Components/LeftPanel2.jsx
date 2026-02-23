@@ -18,6 +18,8 @@ import { backendURL } from "../config/backend";
 import { MdDashboard } from "react-icons/md";
 import { MdOutlineVideoLibrary } from "react-icons/md";
 import { BiCommentDetail } from "react-icons/bi";
+import { MdMonetizationOn } from "react-icons/md";
+import { MdAdminPanelSettings } from "react-icons/md";
 import { MdOutlineAutoFixHigh } from "react-icons/md";
 
 function LeftPanel2() {
@@ -71,6 +73,10 @@ function LeftPanel2() {
       selected = "Content";
     } else if (currentUrl === "/studio/comments") {
       selected = "Comments";
+    } else if (currentUrl === "/studio/monetization") {
+      selected = "Monetization";
+    } else if (currentUrl === "/studio/admin") {
+      selected = "Admin";
     }
     // } else if (currentUrl === "/watchlater") {
     //   selected = "watch-later";
@@ -292,6 +298,56 @@ function LeftPanel2() {
             />
             <p>Customization</p>
           </div>
+          <div
+            className={
+              StudioSection === "Monetization"
+                ? `${theme ? "studio-active" : "studio-active-light"} panel ${
+                    theme ? "" : "panel-light"
+                  }`
+                : `customization panel ${theme ? "" : "panel-light"}`
+            }
+            onClick={() => {
+              localStorage.setItem("Studio-Section", "Monetization");
+              window.location.href = "/studio/monetization";
+            }}
+          >
+            <MdMonetizationOn
+              className={
+                StudioSection === "Monetization"
+                  ? "studio-icon2"
+                  : "studio-icon"
+              }
+              fontSize="medium"
+              style={{ color: "#A9A9A9" }}
+            />
+            <p>Monetization</p>
+          </div>
+          {user?.role === "admin" && (
+            <div
+              className={
+                StudioSection === "Admin"
+                  ? `${theme ? "studio-active" : "studio-active-light"} panel ${
+                      theme ? "" : "panel-light"
+                    }`
+                  : `customization panel ${theme ? "" : "panel-light"}`
+              }
+              onClick={() => {
+                localStorage.setItem("Studio-Section", "Admin");
+                window.location.href = "/studio/admin";
+              }}
+            >
+              <MdAdminPanelSettings
+                className={
+                  StudioSection === "Admin"
+                    ? "studio-icon2"
+                    : "studio-icon"
+                }
+                fontSize="medium"
+                style={{ color: "#A9A9A9" }}
+              />
+              <p>Admin</p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -470,6 +526,39 @@ function LeftPanel2() {
               <AutoFixHighOutlinedIcon
                 className={
                   StudioSection === "Customization"
+                    ? "studio-icon2"
+                    : "studio-icon"
+                }
+                fontSize="medium"
+                style={{
+                  color: "#A9A9A9",
+                  paddingTop: "16px",
+                  paddingBottom: "16px",
+                }}
+              />
+            </Tooltip>
+          </div>
+          <div
+            className={
+              StudioSection === "Monetization"
+                ? `${theme ? "studio-active" : "studio-active-light"} panel ${
+                    theme ? "" : "panel-light"
+                  }`
+                : `customization panel ${theme ? "" : "panel-light"}`
+            }
+            onClick={() => {
+              localStorage.setItem("Studio-Section", "Monetization");
+              window.location.href = "/studio/monetization";
+            }}
+          >
+            <Tooltip
+              TransitionComponent={Zoom}
+              title="Monetization"
+              placement="bottom"
+            >
+              <MdMonetizationOn
+                className={
+                  StudioSection === "Monetization"
                     ? "studio-icon2"
                     : "studio-icon"
                 }
@@ -667,6 +756,39 @@ function LeftPanel2() {
               />
             </Tooltip>
           </div>
+          <div
+            className={
+              StudioSection === "Monetization"
+                ? `${theme ? "studio-active" : "studio-active-light"} panel ${
+                    theme ? "" : "panel-light"
+                  }`
+                : `customization panel ${theme ? "" : "panel-light"}`
+            }
+            onClick={() => {
+              localStorage.setItem("Studio-Section", "Monetization");
+              window.location.href = "/studio/monetization";
+            }}
+          >
+            <Tooltip
+              TransitionComponent={Zoom}
+              title="Monetization"
+              placement="bottom"
+            >
+              <MdMonetizationOn
+                className={
+                  StudioSection === "Monetization"
+                    ? "studio-icon2"
+                    : "studio-icon"
+                }
+                fontSize="medium"
+                style={{
+                  color: "#A9A9A9",
+                  paddingTop: "16px",
+                  paddingBottom: "16px",
+                }}
+              />
+            </Tooltip>
+          </div>
         </div>
       </div>
 
@@ -767,6 +889,31 @@ function LeftPanel2() {
             <MdOutlineAutoFixHigh
               className={
                 StudioSection === "Customization"
+                  ? "studio-icon3"
+                  : "studio-icon-new"
+              }
+              fontSize="26px"
+              style={{
+                color: "#A9A9A9",
+              }}
+            />
+          </Tooltip>
+        </div>
+        <div
+          className="hori-monetization"
+          onClick={() => {
+            localStorage.setItem("Studio-Section", "Monetization");
+            window.location.href = "/studio/monetization";
+          }}
+        >
+          <Tooltip
+            TransitionComponent={Zoom}
+            title="Monetization"
+            placement="bottom"
+          >
+            <MdMonetizationOn
+              className={
+                StudioSection === "Monetization"
                   ? "studio-icon3"
                   : "studio-icon-new"
               }

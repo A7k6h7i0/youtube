@@ -238,9 +238,10 @@
 }
 
 .right-bar {
-  width: 230px;
+  width: 360px;
   padding-right: 25px;
   justify-content: space-between;
+  gap: 8px;
 }
 
 .right-bar2 {
@@ -266,6 +267,10 @@
 .signin>p {
   padding-left: 7px;
   padding-right: 3px;
+}
+
+.studio-nav-btn {
+  margin-left: 0;
 }
 
 .signin:hover {

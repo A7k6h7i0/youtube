@@ -79,9 +79,56 @@ const UserData = new mongoose.Schema({
   profilePic: {
     type: String,
   },
+  // User role: admin, creator, viewer
+  role: {
+    type: String,
+    enum: ['admin', 'creator', 'viewer'],
+    default: 'viewer',
+  },
+  // Monetization fields
+  wallet_balance: {
+    type: Number,
+    default: 0,
+  },
+  total_earnings: {
+    type: Number,
+    default: 0,
+  },
+  // Premium subscription
+  isPremium: {
+    type: Boolean,
+    default: false,
+  },
+  premiumExpiryDate: {
+    type: Date,
+    default: null,
+  },
+  // Razorpay customer ID for payouts
+  razorpayCustomerId: {
+    type: String,
+    default: null,
+  },
+  // Bank account details for withdrawals
+  // SECURITY NOTE: In production, use MongoDB Field Level Encryption or
+  // a key management service (KMS) to encrypt sensitive banking information.
+  // Account numbers should never be stored in plain text.
+  bankDetails: {
+    accountNumber: { type: String, default: null },
+    accountHolderName: { type: String, default: null },
+    ifscCode: { type: String, default: null },
+    bankName: { type: String, default: null },
+  },
   hasChannel: {
     type: Boolean,
     default: false,
+  },
+  // Channel statistics for monetization eligibility
+  channel_stats: {
+    subscriber_count: { type: Number, default: 0 },
+    total_watch_hours: { type: Number, default: 0 },
+    total_video_views: { type: Number, default: 0 },
+    meets_monetization_requirements: { type: Boolean, default: false },
+    monetization_enabled_date: { type: Date, default: null }
   },
   channelName: {
     type: String,

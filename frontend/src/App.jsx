@@ -16,17 +16,21 @@ import Content from "./Components/Studio/Content";
 import VideoDetails from "./Components/Studio/VideoDetails";
 import Comments from "./Components/Studio/Comments";
 import VideoComments from "./Components/Studio/VideoComments";
+import MonetizationDashboard from "./Components/Studio/MonetizationDashboard";
+import AdminPanel from "./Components/Studio/AdminPanel";
+import PremiumSubscription from "./Components/PremiumSubscription";
 import { ToastContainer } from "react-toastify";
 import { Helmet } from "react-helmet";
 import ytLogo from "./img/icon.png";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserData } from "./reducer/user";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const User = useSelector((state) => state.user.user);
   const { user } = User;
+  const [showPremium, setShowPremium] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -48,6 +52,7 @@ function App() {
         pauseOnHover
         theme="dark"
       />
+      {showPremium && <PremiumSubscription onClose={() => setShowPremium(false)} />}
       <BrowserRouter>
         <Helmet>
           <link rel="icon" type="image/x-icon" href={ytLogo} />
@@ -78,6 +83,18 @@ function App() {
           <Route
             path="/studio/video/comments/:id"
             element={user ? <VideoComments /> : <Error />}
+          />
+          <Route
+            path="/studio/monetization"
+            element={user ? <MonetizationDashboard /> : <Error />}
+          />
+          <Route
+            path="/studio/admin"
+            element={user && user.role === "admin" ? <AdminPanel /> : <Error />}
+          />
+          <Route
+            path="/premium"
+            element={<PremiumSubscription onClose={() => setShowPremium(false)} />}
           />
           <Route
             path="/likedVideos"

@@ -21,6 +21,7 @@ import { RxCross1 } from "react-icons/rx";
 import { AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { backendURL } from "../config/backend";
+import { MdMonetizationOn } from "react-icons/md";
 function Navbar() {
   const { data } = useParams();
   const [data2, setData] = useState(data);
@@ -142,14 +143,7 @@ function Navbar() {
             />
           </div>
         </div>
-        <div
-          className="right-bar"
-          style={
-            User.success
-              ? { justifyContent: "space-evenly", paddingRight: "0px" }
-              : { justifyContent: "space-evenly", paddingRight: "25px" }
-          }
-        >
+        <div className="right-bar">
           <FiSearch
             fontSize="24px"
             color={theme ? "#aaa" : "black"}
@@ -161,32 +155,38 @@ function Navbar() {
             title="YouTube studio"
             placement="bottom"
           >
-            <span style={{ display: "inline-flex" }}>
-              <AiOutlineVideoCameraAdd
-                className={theme ? "icon-btns videocreate" : "video-light"}
-                fontSize="24px"
-                style={{ color: theme ? "white" : "black" }}
-                onClick={() => {
-                  if (User.success) {
-                    window.location.href = "/studio";
-                  } else {
-                    setisbtnClicked(true);
-                    document.body.classList.add("bg-css");
-                  }
-                }}
-              />
-            </span>
+            <button
+              onClick={() => {
+                if (User.success) {
+                  window.location.href = "/studio";
+                } else {
+                  setisbtnClicked(true);
+                  document.body.classList.add("bg-css");
+                }
+              }}
+              className={theme ? "signin studio-nav-btn" : "signin signin-light studio-nav-btn"}
+            >
+              <AiOutlineVideoCameraAdd fontSize="20px" />
+              <p>Studio</p>
+            </button>
           </Tooltip>
 
           <button
+            onClick={() => window.location.href = "/premium"}
+            className={theme ? "signin" : "signin signin-light"}
+          >
+            <MdMonetizationOn
+              fontSize="medium"
+              style={{ color: "#FFD700" }}
+            />
+            <p>Premium</p>
+          </button>
+          <button
             onClick={() => {
-              if (isbtnClicked === false) {
-                setisbtnClicked(true);
-                document.body.classList.add("bg-css");
-              } else {
-                setisbtnClicked(false);
-                document.body.classList.remove("bg-css");
-              }
+              // Show the auth popup regardless
+              setisbtnClicked(true);
+              setisSwitched(true); // Start with signin form
+              document.body.classList.add("bg-css");
             }}
             className={theme ? "signin" : "signin signin-light"}
             style={User.success ? { display: "none" } : { display: "flex" }}
