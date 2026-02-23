@@ -164,7 +164,11 @@ function Navbar() {
                   document.body.classList.add("bg-css");
                 }
               }}
-              className={theme ? "signin studio-nav-btn" : "signin signin-light studio-nav-btn"}
+              className={
+                theme
+                  ? "signin studio-nav-btn nav-studio-btn"
+                  : "signin signin-light studio-nav-btn nav-studio-btn"
+              }
             >
               <AiOutlineVideoCameraAdd fontSize="20px" />
               <p>Studio</p>
@@ -173,7 +177,7 @@ function Navbar() {
 
           <button
             onClick={() => window.location.href = "/premium"}
-            className={theme ? "signin" : "signin signin-light"}
+            className={theme ? "signin nav-premium-btn" : "signin signin-light nav-premium-btn"}
           >
             <MdMonetizationOn
               fontSize="medium"
@@ -188,7 +192,7 @@ function Navbar() {
               setisSwitched(true); // Start with signin form
               document.body.classList.add("bg-css");
             }}
-            className={theme ? "signin" : "signin signin-light"}
+            className={theme ? "signin nav-auth-btn" : "signin signin-light nav-auth-btn"}
             style={User.success ? { display: "none" } : { display: "flex" }}
           >
             <AccountCircleOutlinedIcon

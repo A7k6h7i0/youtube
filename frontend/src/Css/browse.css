@@ -9,7 +9,7 @@
   z-index: 4;
   background: var(--sv-surface);
   border-bottom: 1px solid var(--sv-border);
-  top: 67px;
+  top: 56px;
   height: 40px;
   overflow: scroll;
 }
@@ -494,7 +494,7 @@
   }
 
   .popular-categories {
-    top: 55px !important;
+    top: 56px !important;
   }
 }
 
