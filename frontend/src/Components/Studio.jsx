@@ -63,10 +63,7 @@ function Studio() {
   const [isVisibilityClicked, setisVisibilityClicked] = useState(false);
   const [myVideos, setMyVideos] = useState([]);
   const [isPublished, setIsPublished] = useState(false);
-  const [theme, setTheme] = useState(() => {
-    const Dark = localStorage.getItem("Dark");
-    return Dark ? JSON.parse(Dark) : true;
-  });
+  const [theme] = useState(false);
   const User = useSelector((state) => state.user.user);
   const { user } = User;
   //TOAST FUNCTIONS

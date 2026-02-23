@@ -14,6 +14,12 @@
   overflow: scroll;
 }
 
+@media (min-width: 861px) {
+  .popular-categories {
+    padding-left: 30px;
+  }
+}
+
 .top-tags {
   cursor: pointer;
   background: var(--sv-surface2);
@@ -137,15 +143,11 @@
   height: 32px;
   font-size: 18px;
   cursor: pointer;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
   transition: background 0.15s ease;
-}
-
-.browse-card-wrap:hover .browse-three-dot {
-  display: flex;
 }
 
 .browse-three-dot:hover {

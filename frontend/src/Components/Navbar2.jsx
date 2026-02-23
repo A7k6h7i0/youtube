@@ -30,10 +30,7 @@ function Navbar2() {
   const [searchDesc, setSearchDesc] = useState(false);
   const [MobileSearch, setMobileSearch] = useState(false);
   const [searchClicked, setSearchClicked] = useState(false);
-  const [theme, setTheme] = useState(() => {
-    const Dark = localStorage.getItem("Dark");
-    return Dark ? JSON.parse(Dark) : true;
-  });
+  const [theme] = useState(false);
   const searchRef = useRef();
   const accountRef = useRef();
 

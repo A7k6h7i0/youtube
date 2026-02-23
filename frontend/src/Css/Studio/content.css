@@ -219,14 +219,6 @@
   background-color: #1f1f1f;
 }
 
-.table-roww:hover .studio-video-desc {
-  display: none;
-}
-
-.table-roww:hover .video-editable-section {
-  display: flex;
-}
-
 .table-roww:hover .drop-down {
   opacity: 1 !important;
 }
@@ -244,7 +236,7 @@
 }
 
 .video-editable-section {
-  display: none;
+  display: flex;
   align-items: center;
   width: 180px;
   justify-content: space-between;

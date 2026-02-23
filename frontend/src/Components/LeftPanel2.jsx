@@ -33,10 +33,7 @@ function LeftPanel2() {
   const StudioSection = localStorage.getItem("Studio-Section");
   const location = useLocation();
   const [loading, setLoading] = useState(true);
-  const [theme, setTheme] = useState(() => {
-    const Dark = localStorage.getItem("Dark");
-    return Dark ? JSON.parse(Dark) : true;
-  });
+  const [theme] = useState(false);
 
   const User = useSelector((state) => state.user.user);
   const { user } = User;

@@ -25,10 +25,7 @@ function Dashboard() {
     const menu = localStorage.getItem("studioMenuClicked");
     return menu ? JSON.parse(menu) : false;
   });
-  const [theme, setTheme] = useState(() => {
-    const Dark = localStorage.getItem("Dark");
-    return Dark ? JSON.parse(Dark) : true;
-  });
+  const [theme] = useState(false);
 
   document.title = "Channel dashboard - YouTube Studio";
 
