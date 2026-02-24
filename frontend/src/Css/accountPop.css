@@ -3,7 +3,7 @@
   background-color: #282828db;
   position: fixed;
   color: white;
-  z-index: 20;
+  z-index: 120;
   right: 20px;
   top: 68px;
   padding-top: 20px;
@@ -21,7 +21,7 @@
   background-color: #292929;
   position: fixed;
   color: white;
-  z-index: 20;
+  z-index: 120;
   right: 20px;
   top: 68px;
   padding-top: 20px;
@@ -73,7 +73,7 @@
 }
 
 .c-sec:hover {
-  background-color: #3e3e3e;
+  background: var(--sv-gradient);
 }
 
 .c-sec > p {

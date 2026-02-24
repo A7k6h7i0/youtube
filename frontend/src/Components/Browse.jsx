@@ -1,6 +1,7 @@
 import "../Css/browse.css";
 import { useEffect, useState, useRef, useCallback } from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -151,6 +152,8 @@ function Browse() {
         setVideoData(videoData);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -172,12 +175,6 @@ function Browse() {
       setFilteredVideos([]);
     }
   }, [TagsSelected, VideoData]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3600);
-  }, []);
 
   useEffect(() => {
     if (theme === false && !window.location.href.includes("/studio")) {
@@ -377,7 +374,7 @@ function Browse() {
                         }}
                         title="More options"
                       >
-                        ⋮
+                        <MoreVertIcon fontSize="small" />
                       </button>
                       {activeMenu === index && (
                         <div
@@ -389,7 +386,7 @@ function Browse() {
                             className="browse-menu-item"
                             onClick={() => saveToWatchLater(VideoID[index], null)}
                           >
-                            🕐 Save to Watch Later
+                            Save to Watch Later
                           </div>
                           <div
                             className="browse-menu-item"
@@ -398,7 +395,7 @@ function Browse() {
                               setActiveMenu(null);
                             }}
                           >
-                            ▶ Go to video
+                            Go to video
                           </div>
                         </div>
                       )}
@@ -410,19 +407,22 @@ function Browse() {
                           window.location.href = `/video/${VideoID[index]}`;
                         }}
                       >
-                        <img
-                          style={{ width: "330px", borderRadius: "10px" }}
-                          src={element}
-                          alt="thumbnails"
-                          className="browse-thumbnails"
-                        />
-                        <p className="duration">
-                          {Math.floor(duration[index] / 60) +
-                            ":" +
-                            (Math.round(duration[index] % 60) < 10
-                              ? "0" + Math.round(duration[index] % 60)
-                              : Math.round(duration[index] % 60))}
-                        </p>
+                        <div className="browse-thumb-wrap">
+                          <img
+                            src={element}
+                            alt="thumbnails"
+                            className="browse-thumbnails"
+                            loading={index < 6 ? "eager" : "lazy"}
+                            decoding="async"
+                          />
+                          <p className="duration">
+                            {Math.floor(duration[index] / 60) +
+                              ":" +
+                              (Math.round(duration[index] % 60) < 10
+                                ? "0" + Math.round(duration[index] % 60)
+                                : Math.round(duration[index] % 60))}
+                          </p>
+                        </div>
 
                         <div
                           className={
@@ -439,7 +439,7 @@ function Browse() {
                             />
                           </div>
                           <div className="channel-text-data">
-                            <p className="title" style={{ marginTop: "10px" }}>
+                            <p className="title browse-video-title">
                               {Titles[index] && Titles[index].length <= 60
                                 ? Titles[index]
                                 : `${Titles[index].slice(0, 55)}..`}
@@ -448,7 +448,6 @@ function Browse() {
                               <Tooltip TransitionComponent={Zoom} title={uploader[index]} placement="top">
                                 <p
                                   className={theme ? "uploader" : "uploader text-light-mode2"}
-                                  style={{ marginTop: "10px" }}
                                 >
                                   {uploader[index]}
                                 </p>
@@ -456,7 +455,7 @@ function Browse() {
                               <Tooltip TransitionComponent={Zoom} title="Verified" placement="right">
                                 <CheckCircleIcon
                                   fontSize="100px"
-                                  style={{ color: "rgb(138, 138, 138)", marginTop: "8px", marginLeft: "4px" }}
+                                  style={{ color: "rgb(138, 138, 138)", marginLeft: "4px" }}
                                 />
                               </Tooltip>
                             </div>
@@ -471,7 +470,7 @@ function Browse() {
                                       : VideoViews[index]}{" "}
                                 views
                               </p>
-                              <p className="upload-time" style={{ marginLeft: "4px" }}>
+                              <p className="upload-time">
                                 &#x2022;{" "}
                                 {(() => {
                                   const diff = new Date() - new Date(publishDate[index]);
@@ -524,26 +523,24 @@ function Browse() {
                       onClick={() => {
                         if (user?.success) {
                           updateViews(element._id);
-                          setTimeout(() => {
-                            window.location.href = `/video/${element._id}`;
-                          }, 400);
                         }
                         window.location.href = `/video/${element._id}`;
                       }}
                     >
-                      <img
-                        style={{ width: "330px", borderRadius: "10px" }}
-                        src={element.thumbnailURL}
-                        alt="thumbnails"
-                        className="browse-thumbnails"
-                      />
-                      <p className="duration">
-                        {Math.floor(element.videoLength / 60) +
-                          ":" +
-                          (Math.round(element.videoLength % 60) < 10
-                            ? "0" + Math.round(element.videoLength % 60)
-                            : Math.round(element.videoLength % 60))}
-                      </p>
+                      <div className="browse-thumb-wrap">
+                        <img
+                          src={element.thumbnailURL}
+                          alt="thumbnails"
+                          className="browse-thumbnails"
+                        />
+                        <p className="duration">
+                          {Math.floor(element.videoLength / 60) +
+                            ":" +
+                            (Math.round(element.videoLength % 60) < 10
+                              ? "0" + Math.round(element.videoLength % 60)
+                              : Math.round(element.videoLength % 60))}
+                        </p>
+                      </div>
 
                       <div
                         className={
@@ -560,7 +557,7 @@ function Browse() {
                           />
                         </div>
                         <div className="channel-text-data">
-                          <p className="title" style={{ marginTop: "10px" }}>
+                          <p className="title browse-video-title">
                             {element.Title}
                           </p>
                           <div className="video-uploader">
@@ -568,7 +565,6 @@ function Browse() {
                               className={
                                 theme ? "uploader" : "uploader text-light-mode2"
                               }
-                              style={{ marginTop: "10px" }}
                             >
                               {element.uploader}
                             </p>
@@ -581,7 +577,6 @@ function Browse() {
                                 fontSize="100px"
                                 style={{
                                   color: "rgb(138, 138, 138)",
-                                  marginTop: "8px",
                                   marginLeft: "4px",
                                 }}
                               />
@@ -604,7 +599,6 @@ function Browse() {
                             </p>
                             <p
                               className="upload-time"
-                              style={{ marginLeft: "4px" }}
                             >
                               &#x2022;{" "}
                               {(() => {
