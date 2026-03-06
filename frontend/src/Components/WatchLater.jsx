@@ -26,7 +26,7 @@ function WatchLater() {
   const User = useSelector((state) => state.user.user);
   const { user } = User;
 
-  document.title = "Watch later - StreamVault";
+  document.title = "Watch later - VYX";
 
   useEffect(() => {
     setTimeout(() => {
@@ -122,11 +122,19 @@ function WatchLater() {
       <>
         <Navbar />
         <LeftPanel />
-        <div className="searched-content">
-          <img src={nothing} alt="no results" className="nothing-found" />
-          <p className={theme ? "no-results" : "no-results text-light-mode"}>
-            Your Watch Later playlist is empty!
-          </p>
+        <div className="liked-video-data" style={{ position: 'relative', minHeight: '100vh' }}>
+          <div className="searched-content" style={{ position: 'relative', left: 'auto', top: 'auto', width: '100%', transform: 'none' }}>
+            <img src={nothing} alt="no results" className="nothing-found" />
+            <p
+              className={theme ? "no-results" : "no-results text-light-mode"}
+              style={{ color: "black" }}
+            >
+              Your Watch Later playlist is empty!
+            </p>
+            <p style={{ color: theme ? '#aaa' : '#666', fontSize: '14px', marginTop: '10px' }}>
+              No videos in Watch later
+            </p>
+          </div>
         </div>
       </>
     );
@@ -212,7 +220,7 @@ function WatchLater() {
                   </div>
                 )}
                 <div className="last-like-section">
-                  <p className="like-head">Watch later</p>
+                  <p className={theme ? "like-head" : "like-head-light"}>Watch later</p>
                   <div className="last-like2">
                     <p className="like-username">{user?.name}</p>
                     <p className="like-total-videos">
@@ -457,7 +465,7 @@ function WatchLater() {
                     </div>
                   )}
                   <div className="last-like-section2">
-                    <p className="like-head">Watch later</p>
+                    <p className={theme ? "like-head" : "like-head-light"}>Watch later</p>
                     <div className="last-like2">
                       <p className="like-username">{user?.name}</p>
                       <p className="like-total-videos">

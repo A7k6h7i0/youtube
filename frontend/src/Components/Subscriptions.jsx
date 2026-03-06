@@ -57,7 +57,7 @@ function Subscriptions() {
     return Dark ? JSON.parse(Dark) : true;
   });
 
-  document.title = "Subscriptions - YouTube";
+  document.title = "Subscriptions - VYX";
   const User = useSelector((state) => state.user.user);
   const { user } = User;
 

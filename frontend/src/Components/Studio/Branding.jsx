@@ -302,7 +302,7 @@ function Branding() {
             }
           >
             Your profile picture will appear where your channel is presented on
-            YouTube, like next to your videos and comments.
+            VYX, like next to your videos and comments.
           </p>
           <p
             className={
@@ -358,7 +358,7 @@ function Branding() {
             >
               It’s recommended to use a picture that’s at least 98 x 98 pixels
               and 4MB or less. Use a PNG or GIF (no animations) file. Make sure
-              your picture follows the YouTube Community Guidelines.
+              your picture follows the VYX Community Guidelines.
               <label
                 className={theme ? "change-image" : "change-image blue-txt"}
                 htmlFor="profile-image-input"

@@ -10,7 +10,7 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
-import YouTubeIcon from "@mui/icons-material/YouTube";
+import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
 import { useSelector } from "react-redux";
 import { backendURL } from "../config/backend";
 function AccountPop() {
@@ -134,11 +134,11 @@ function AccountPop() {
               window.location.href = "/";
             }}
           >
-            <YouTubeIcon
+            <DiamondOutlinedIcon
               fontSize="medium"
               style={{ color: theme ? "#909090" : "black" }}
             />
-            <p>YouTube</p>
+            <p>VYX Premium</p>
           </div>
           <div
             className={

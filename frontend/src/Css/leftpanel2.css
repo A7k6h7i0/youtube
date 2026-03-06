@@ -154,6 +154,10 @@
   display: none !important;
 }
 
+.tooltip-ref-wrap {
+  display: inline-flex;
+}
+
 /* MEDIA QUERIES */
 
 @media (width<= 860px) {

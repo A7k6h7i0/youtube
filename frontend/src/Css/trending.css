@@ -3,7 +3,7 @@
   /* top: 95px; */
   /* left: 450px; */
   width: -webkit-fill-available;
-  color: white;
+  color: black;
   transform: translate(-50%, -50%);
   left: 50%;
   top: 170px;
@@ -11,7 +11,7 @@
 .main-trending-section2 {
   position: absolute;
   width: 70vw;
-  color: white;
+  color: black;
   left: 18%;
   top: 14%;
 }

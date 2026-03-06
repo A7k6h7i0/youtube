@@ -25,7 +25,7 @@ function Trending() {
   });
   const User = useSelector((state) => state.user.user);
   const { user } = User;
-  document.title = "Trending - YouTube";
+  document.title = "Trending - VYX";
 
   useEffect(() => {
     if (theme === false && !window.location.href.includes("/studio")) {

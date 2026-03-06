@@ -147,7 +147,7 @@ function PremiumSubscription({ onClose }) {
       const razorpay = new window.Razorpay({
         key: keyToUse,
         subscription_id: subscriptionResponse.subscriptionId,
-        name: "YouTube Clone Premium",
+        name: "VYX Premium",
         description: `${selectedPlan.name} Auto-Renewing Plan`,
         prefill: {
           name: user?.name || "",
@@ -223,7 +223,7 @@ function PremiumSubscription({ onClose }) {
 
         <div className="premium-header">
           <StarIcon className="premium-star" />
-          <h1>YouTube Premium</h1>
+          <h1>Vyx Premium</h1>
           <p>Ad-free videos, background play, and more</p>
         </div>
 
@@ -242,7 +242,7 @@ function PremiumSubscription({ onClose }) {
                 <li>Ad-free viewing experience</li>
                 <li>Background play</li>
                 <li>Download videos for offline</li>
-                <li>YouTube Music Premium included</li>
+                <li>Vyx Music Premium included</li>
               </ul>
             </div>
           </div>
@@ -270,7 +270,7 @@ function PremiumSubscription({ onClose }) {
                 <li>Ad-free videos</li>
                 <li>Background play</li>
                 <li>Download for offline</li>
-                <li>YouTube Music Premium</li>
+                <li>Vyx Music Premium</li>
                 <li>Access across mobile, web, and TV</li>
               </ul>
             </div>

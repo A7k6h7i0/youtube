@@ -10,7 +10,7 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
-import { SiYoutubestudio } from "react-icons/si";
+import { SiVimeo } from "react-icons/si";
 import { useSelector } from "react-redux";
 import { backendURL } from "../config/backend";
 
@@ -150,11 +150,11 @@ function AccountPop() {
               window.location.href = "/studio";
             }}
           >
-            <SiYoutubestudio
+            <SiVimeo
               fontSize="21px"
               style={{ color: theme ? "white" : "black" }}
             />
-            <p>YouTube Studio</p>
+            <p>Vyx Studio</p>
           </div>
           <div
             className={theme ? "apperance c-sec" : "apperance c-sec2"}

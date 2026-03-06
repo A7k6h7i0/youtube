@@ -32,7 +32,7 @@ function Comments() {
   const User = useSelector((state) => state.user.user);
   const { user } = User;
 
-  document.title = "Channel comments - YouTube Studio";
+  document.title = "Channel comments - Vyx Studio";
 
   useEffect(() => {
     const handleMenuButtonClick = () => {

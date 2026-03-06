@@ -146,8 +146,8 @@ function Playlists() {
 
   document.title =
     PlaylistName && PlaylistName !== undefined
-      ? `${PlaylistName} - YouTube`
-      : "YouTube";
+      ? `${PlaylistName} - VYX`
+      : "VYX";
 
   useEffect(() => {
     const handleMenuButtonClick = () => {
@@ -340,6 +340,9 @@ function Playlists() {
         <div className="searched-content">
           <img src={nothing} alt="no results" className="nothing-found" />
           <p className="no-results">No videos found!</p>
+          <p style={{ color: '#aaa', fontSize: '14px', marginTop: '10px' }}>
+            No videos in this playlist
+          </p>
         </div>
       </>
     );

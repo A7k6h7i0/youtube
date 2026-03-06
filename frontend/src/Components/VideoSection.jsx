@@ -734,7 +734,7 @@ function VideoSection() {
   } = matchedVideo;
 
   document.title =
-    Title && Title !== undefined ? `${Title} - YouTube` : "YouTube";
+    Title && Title !== undefined ? `${Title} - VYX` : "VYX";
 
   const likeVideo = async () => {
     try {
@@ -1132,14 +1132,14 @@ function VideoSection() {
               <div className="channel-data2">
                 <div className="creator">
                   <p
-                    style={{ fontSize: "17px", cursor: "pointer" }}
+                    className="channel-name"
                     onClick={() => {
                       if (channelID !== undefined) {
                         window.location.href = `/channel/${channelID}`;
                       }
                     }}
                   >
-                    {uploader}
+                    {uploader || youtuberName || "VYX Channel"}
                   </p>
                   <Tooltip
                     TransitionComponent={Zoom}

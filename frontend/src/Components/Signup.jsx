@@ -94,7 +94,7 @@ function Signup() {
         <p className="signup-head">Create Your Account</p>
         <p className="signup-desc">
           Unlock Your World of Entertainment, Unlock Your World of
-          Entertainment, Join the YouTube Community
+          Entertainment, Join the VYX Community
         </p>
       </div>
       <div className="signup-form">

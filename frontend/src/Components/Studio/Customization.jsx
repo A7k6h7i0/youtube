@@ -20,7 +20,7 @@ function Customization() {
   });
   const User = useSelector((state) => state.user.user);
   const { user } = User;
-  document.title = "Channel customization - YouTube Studio";
+  document.title = "Channel customization - Vyx Studio";
 
   useEffect(() => {
     const handleMenuButtonClick = () => {

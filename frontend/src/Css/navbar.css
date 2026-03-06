@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap");
 
-/* === StreamVault Design Tokens === */
+/* === VYX Design Tokens === */
 :root {
   --sv-bg: #0A0A0F;
   --sv-surface: #111118;
@@ -16,6 +16,11 @@
   --sv-hover: rgba(124, 58, 237, 0.12);
   --sv-radius: 12px;
   --sv-shadow: 0 8px 32px rgba(124, 58, 237, 0.15);
+}
+
+html, body {
+  overflow: hidden;
+  height: 100%;
 }
 
 * {
@@ -70,8 +75,8 @@
   padding-left: 15px;
 }
 
-.youtubeLogo,
-.youtubeLogo2 {
+.vyxLogo,
+.vyxLogo2 {
   height: 48px;
   width: auto;
   cursor: pointer;
@@ -86,6 +91,11 @@
   width: 45vw;
   border: 1px solid var(--sv-border);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Mobile search bar - hidden by default */
+.mobile-search-bar {
+  display: none;
 }
 
 .search:focus-within {
@@ -148,6 +158,39 @@
 
 .search-icon:hover {
   background: rgba(124, 58, 237, 0.35);
+}
+
+.mobile-search-icon {
+  cursor: pointer;
+  padding: 8px;
+  color: var(--sv-text-muted);
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-search-icon:hover {
+  color: var(--sv-purple);
+}
+
+.mobile-search-bar {
+  display: none;
+  align-items: center;
+  background: var(--sv-surface2);
+  border: 1px solid var(--sv-border);
+  border-radius: 25px;
+  padding: 4px 12px;
+  gap: 8px;
+}
+
+.mobile-search-bar input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--sv-text);
+  font-size: 14px;
+  width: 150px;
 }
 
 .search-light-icon {
@@ -242,11 +285,31 @@
 
 .right-bar {
   width: auto;
-  min-width: 360px;
+  min-width: 280px;
   padding-right: 25px;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 6px;
   flex-shrink: 0;
+}
+
+.right-bar button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.nav-studio-btn,
+.nav-premium-btn,
+.nav-auth-btn {
+  padding: 8px 12px;
+  font-size: 13px;
+  gap: 6px;
+}
+
+.nav-studio-btn p,
+.nav-premium-btn p,
+.nav-auth-btn p {
+  padding-left: 5px;
+  padding-right: 2px;
 }
 
 .right-bar2 {
@@ -731,7 +794,17 @@ form>input::placeholder {
 }
 
 .second-search {
-  display: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.second-search:hover {
+  background: var(--sv-hover);
 }
 
 .new-searchbar {
@@ -875,6 +948,32 @@ form>input::placeholder {
   }
 }
 
+@media (max-width: 1200px) {
+  .nav-premium-btn {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .nav-studio-btn p,
+  .nav-auth-btn p {
+    display: none;
+  }
+  
+  .nav-studio-btn,
+  .nav-auth-btn {
+    padding: 8px;
+  }
+  
+  .middle-bar {
+    display: none;
+  }
+  
+  .mobile-search-bar {
+    display: none !important;
+  }
+}
+
 @media (width<=1100px) {
 
   #searchType2,
@@ -897,6 +996,12 @@ form>input::placeholder {
 }
 
 @media (max-width: 940px) {
+  .navbar {
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 10px 8px;
+  }
+
   .middle-bar {
     display: none;
   }
@@ -905,50 +1010,90 @@ form>input::placeholder {
     display: flex !important;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 8px;
     border-radius: 50%;
-    font-size: 28px;
-    width: 44px;
-    height: 44px;
+    font-size: 24px;
+    width: 36px;
+    height: 36px;
     cursor: pointer;
+    flex-shrink: 0;
+    color: #aaa !important;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-right: 6px;
   }
 
   .second-search:hover {
-    background-color: rgba(128, 128, 128, 0.2);
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff !important;
   }
 
-  .right-bar {
-    min-width: auto;
-    padding-right: 8px;
-    gap: 5px;
-    max-width: 68vw;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
+  .mobile-search-bar {
+    display: none !important;
   }
 
+  /* Show studio and premium buttons on mobile */
   .nav-studio-btn,
   .nav-premium-btn {
     display: flex !important;
+    min-width: auto;
+    white-space: nowrap;
+  }
+
+  /* Show text for studio and premium buttons on mobile */
+  .nav-studio-btn p,
+  .nav-premium-btn p {
+    display: inline-block !important;
+    white-space: nowrap;
+    font-size: 11px;
+  }
+
+  .right-bar {
+    flex: 1;
+    min-width: auto;
+    justify-content: flex-start !important;
+    padding-right: 0;
+    gap: 3px;
+    max-width: none;
+    overflow-x: visible;
+    overflow-y: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
   }
 
   .signin {
-    padding: 6px 10px;
-    font-size: 12px;
+    padding: 6px 8px;
+    font-size: 11px;
     margin-left: 0;
     flex-shrink: 0;
   }
 
   .signin > p {
     display: block;
-    font-size: 12px;
-    padding-left: 5px;
+    font-size: 10px;
+    padding-left: 4px;
     padding-right: 0;
+  }
+
+  .nav-studio-btn,
+  .nav-premium-btn {
+    padding: 5px 7px !important;
+  }
+
+  .signin.nav-auth-btn {
+    display: flex !important;
+  }
+
+  .signin.nav-auth-btn.logged-in {
+    display: none !important;
   }
 
   .profile-pic,
   .sk-profile {
     flex-shrink: 0;
+    width: 32px !important;
+    height: 32px !important;
   }
 }
 
@@ -981,7 +1126,7 @@ form>input::placeholder {
     padding: 13px;
   }
 
-  .youtubeLogo2 {
+  .vyxLogo2 {
     padding-left: 10px;
   }
 
@@ -999,7 +1144,9 @@ form>input::placeholder {
 @media (max-width: 650px) {
 
   .navbar {
-    padding: 10px 12px;
+    padding: 8px 6px;
+    justify-content: flex-start;
+    gap: 4px;
   }
 
   .menu,
@@ -1007,8 +1154,33 @@ form>input::placeholder {
     display: none !important;
   }
 
-  .youtubeLogo {
+  .vyxLogo {
     padding-left: 0;
+    height: 36px !important;
+    width: auto !important;
+  }
+
+  .mobile-search-bar {
+    display: none !important;
+  }
+
+  .second-search {
+    display: flex !important;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    padding: 7px;
+    cursor: pointer;
+    color: #aaa;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .second-search:hover {
+    background: rgba(255, 255, 255, 0.15);
   }
 
   .videocreate,
@@ -1017,34 +1189,42 @@ form>input::placeholder {
   }
 
   .right-bar {
-    width: auto;
-    min-width: auto;
-    justify-content: flex-end !important;
-    padding-right: 6px !important;
-    gap: 6px;
+    flex: 1;
+    min-width: 0;
+    justify-content: flex-start !important;
+    padding-right: 0 !important;
+    gap: 3px;
+    overflow-x: visible;
+    display: flex;
+    align-items: center;
   }
 
   .profile-pic,
   .sk-profile {
-    width: 35px !important;
-    height: 35px !important;
+    width: 32px !important;
+    height: 32px !important;
   }
 
   .signin>p {
     display: block;
-    font-size: 11px;
-    padding-left: 4px;
+    font-size: 10px;
+    padding-left: 3px;
     padding-right: 0;
   }
 
   .signin {
     border: none;
     margin-left: 0;
-    padding: 5px 8px;
+    padding: 4px 5px;
+    font-size: 10px;
+  }
+
+  .signin.nav-auth-btn p {
+    display: none;
   }
 
   .user-avatar {
-    font-size: xx-large !important;
+    font-size: x-large !important;
   }
 
   .signup-head {
@@ -1069,6 +1249,38 @@ form>input::placeholder {
 
   .create-btn-short {
     display: flex !important;
+  }
+
+  /* Only hide auth button text on mobile */
+  .nav-auth-btn p {
+    display: none !important;
+  }
+
+  /* Show text for studio and premium buttons */
+  .nav-studio-btn p,
+  .nav-premium-btn p {
+    display: block !important;
+  }
+
+  .nav-premium-btn {
+    display: flex !important;
+    padding: 4px 6px !important;
+  }
+
+  .nav-premium-btn p {
+    font-size: 10px;
+    padding-left: 3px;
+    padding-right: 0;
+  }
+
+  .nav-studio-btn {
+    padding: 4px 6px !important;
+  }
+
+  .nav-studio-btn p {
+    font-size: 10px;
+    padding-left: 3px;
+    padding-right: 0;
   }
 }
 
@@ -1172,6 +1384,68 @@ form>input::placeholder {
   .right-bar {
     width: auto;
     min-width: auto;
+    gap: 2px;
+    padding-right: 2px !important;
+  }
+
+  .navbar {
+    padding: 8px 6px;
+  }
+
+  .vyxLogo {
+    height: 30px !important;
+  }
+
+  .mobile-search-bar {
+    display: none !important;
+  }
+
+  .second-search {
+    display: flex !important;
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    padding: 6px;
+    cursor: pointer;
+    color: #aaa;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .second-search:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .signin {
+    padding: 4px 5px;
+  }
+
+  .signin.nav-auth-btn {
+    padding: 4px;
+  }
+
+  .nav-premium-btn {
+    display: flex !important;
+    padding: 4px 5px !important;
+  }
+
+  .nav-premium-btn p {
+    font-size: 9px !important;
+    padding-left: 2px;
+  }
+
+  .nav-studio-btn p {
+    font-size: 9px !important;
+    padding-left: 2px;
+  }
+
+  .profile-pic,
+  .sk-profile {
+    width: 28px !important;
+    height: 28px !important;
   }
 
   .auth-popup {

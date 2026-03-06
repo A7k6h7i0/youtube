@@ -20,7 +20,6 @@ import MonetizationDashboard from "./Components/Studio/MonetizationDashboard";
 import AdminPanel from "./Components/Studio/AdminPanel";
 import PremiumSubscription from "./Components/PremiumSubscription";
 import { ToastContainer } from "react-toastify";
-import { Helmet } from "react-helmet";
 import ytLogo from "./img/icon.png";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserData } from "./reducer/user";
@@ -38,6 +37,17 @@ function App() {
     dispatch(fetchUserData());
   }, [dispatch]);
 
+  useEffect(() => {
+    let favicon = document.querySelector("link[rel='icon']");
+    if (!favicon) {
+      favicon = document.createElement("link");
+      favicon.setAttribute("rel", "icon");
+      favicon.setAttribute("type", "image/x-icon");
+      document.head.appendChild(favicon);
+    }
+    favicon.setAttribute("href", ytLogo);
+  }, []);
+
   return (
     <>
       <ToastContainer
@@ -54,9 +64,6 @@ function App() {
       />
       {showPremium && <PremiumSubscription onClose={() => setShowPremium(false)} />}
       <BrowserRouter>
-        <Helmet>
-          <link rel="icon" type="image/x-icon" href={ytLogo} />
-        </Helmet>
         <Routes>
           <Route path="/" element={<Browse />} />
           <Route path="/home" element={<Browse />} />

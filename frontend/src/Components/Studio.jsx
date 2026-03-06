@@ -129,20 +129,26 @@ function Studio() {
   useEffect(() => {
     const getVideos = async () => {
       try {
-        if (user?.email) {
+        if (user?.email && isChannel === true) {
           const response = await fetch(
             `${backendURL}/getuservideos/${user?.email}`
           );
-          const data = await response.json();
-          setMyVideos(data);
+          if (response.ok) {
+            const data = await response.json();
+            setMyVideos(Array.isArray(data) ? data : []);
+          } else {
+            setMyVideos([]);
+          }
+        } else if (isChannel === false) {
+          setMyVideos([]);
         }
       } catch (error) {
-        // console.log(error.message);
+        setMyVideos([]);
       }
     };
 
-    return () => getVideos();
-  }, [user?.email]);
+    getVideos();
+  }, [user?.email, isChannel]);
 
   useEffect(() => {
     const handleClick = () => {
@@ -163,7 +169,7 @@ function Studio() {
 
   useEffect(() => {
     const handleClick = () => {
-      document.querySelector(".studio").classList.add("studio-dark");
+      document.querySelector(".studio")?.classList.add("studio-dark");
     };
 
     const searchInp = document.getElementById("searchType2");
@@ -177,11 +183,11 @@ function Studio() {
         searchInp.removeEventListener("click", handleClick);
       }
     };
-  });
+  }, []);
 
   useEffect(() => {
     const handleClick = () => {
-      document.querySelector(".studio").classList.remove("studio-dark");
+      document.querySelector(".studio")?.classList.remove("studio-dark");
     };
 
     const crossBtn = document.querySelector(".clear-search");
@@ -195,23 +201,30 @@ function Studio() {
         crossBtn.removeEventListener("click", handleClick);
       }
     };
-  });
+  }, []);
 
   useEffect(() => {
     if (isChannel === false) {
-      document.body.classList.add("bg-css");
+      document.body.classList.add("bg-css2");
     } else {
-      document.body.classList.remove("bg-css");
+      document.body.classList.remove("bg-css2");
     }
   }, [isChannel]);
 
   useEffect(() => {
     if (isClicked === true) {
-      document.body.classList.add("bg-css");
+      document.body.classList.add("bg-css2");
     } else {
-      document.body.classList.remove("bg-css");
+      document.body.classList.remove("bg-css2");
     }
   }, [isClicked]);
+
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove("bg-css2");
+      document.querySelector(".studio")?.classList.remove("studio-dark");
+    };
+  }, []);
 
   //GET CHANNEL'S DATA
 
@@ -649,7 +662,7 @@ function Studio() {
               theme ? "channel-slogan" : "channel-slogan text-light-mode2"
             }
           >
-            Share Your Story: Inspire and Connect with a YouTube Channel!
+            Share Your Story: Inspire and Connect with a VYX Channel!
           </p>
           <form onSubmit={saveChannelData} className="channel-deatils">
             <div className="profile-pic-section">
@@ -1142,7 +1155,7 @@ function Studio() {
                     width="284.44"
                     height="160"
                     src={VideoURL}
-                    title="YouTube video player"
+                    title="VYX video player"
                     frameBorder="0"
                     allowFullScreen
                   ></iframe>

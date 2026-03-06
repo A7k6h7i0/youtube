@@ -7,7 +7,7 @@ import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDown
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import YouTubeIcon from "@mui/icons-material/YouTube";
+import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import noVideo from "../../img/no-video2.png";
@@ -27,7 +27,7 @@ function Dashboard() {
   });
   const [theme] = useState(false);
 
-  document.title = "Channel dashboard - YouTube Studio";
+  document.title = "Channel dashboard - Vyx Studio";
 
   const User = useSelector((state) => state.user.user);
   const { user } = User;
@@ -672,7 +672,7 @@ function Dashboard() {
                                 />
                               </div>
                               <div className="publishlikes">
-                                <YouTubeIcon
+                                <DiamondOutlinedIcon
                                   className={
                                     theme ? "make-white" : "make-white-light"
                                   }

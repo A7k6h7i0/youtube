@@ -996,7 +996,7 @@ function LeftPanel() {
             alt="logo"
             loading="lazy"
             style={{ marginLeft: "5px" }}
-            className="youtubeLogo"
+            className="vyxLogo"
             onClick={() => {
               window.location.href = "/";
             }}

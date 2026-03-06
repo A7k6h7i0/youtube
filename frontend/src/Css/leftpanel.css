@@ -9,7 +9,8 @@
   line-height: 48px;
   z-index: 1;
   height: -webkit-fill-available;
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   border-right: 1px solid var(--sv-border);
 }
 
@@ -145,7 +146,8 @@
   border-right: 1px solid var(--sv-border);
   z-index: 11;
   height: 100%;
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   animation: COME_IN 0.35s both;
 }
 

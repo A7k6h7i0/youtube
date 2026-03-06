@@ -73,6 +73,8 @@
   position: relative;
   left: 250px;
   top: 100px;
+  overflow-y: auto;
+  height: calc(100vh - 100px);
 }
 
 .browse-data2 {
@@ -81,6 +83,8 @@
   position: relative;
   left: 250px;
   top: 100px;
+  overflow-y: auto;
+  height: calc(100vh - 100px);
 }
 
 /* Mobile Responsive Styles */
@@ -91,6 +95,8 @@
     left: 0;
     top: 100px;
     padding: 0 12px;
+    overflow-y: auto;
+    height: calc(100vh - 100px);
   }
   
   .popular-categories {
@@ -207,6 +213,8 @@
 .browse {
   background: var(--sv-bg);
   display: flex;
+  height: calc(100vh - 56px);
+  overflow: hidden;
 }
 
 .uploaded-videos {
@@ -505,6 +513,7 @@
   gap: 4px;
   flex-wrap: nowrap;
   margin-top: 0;
+  min-width: 0;
 }
 
 .channel-pic {
@@ -514,9 +523,11 @@
 }
 
 .uploader {
+  display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: calc(100% - 24px);
 }
 
 .browse-video-title {

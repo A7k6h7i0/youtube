@@ -19,7 +19,7 @@ function LikeVideos() {
     const Dark = localStorage.getItem("Dark");
     return Dark ? JSON.parse(Dark) : true;
   });
-  document.title = "Liked videos - StreamVault";
+  document.title = "Liked videos - VYX";
 
   const User = useSelector((state) => state.user.user);
   const { user } = User;
@@ -113,11 +113,19 @@ function LikeVideos() {
       <>
         <Navbar />
         <LeftPanel />
-        <div className="searched-content">
-          <img src={nothing} alt="no results" className="nothing-found" />
-          <p className={theme ? "no-results" : "no-results text-light-mode"}>
-            You haven&apos;t liked any videos yet!
-          </p>
+        <div className="liked-video-data" style={{ position: 'relative', minHeight: '100vh' }}>
+          <div className="searched-content" style={{ position: 'relative', left: 'auto', top: 'auto', width: '100%', transform: 'none' }}>
+            <img src={nothing} alt="no results" className="nothing-found" />
+            <p
+              className={theme ? "no-results" : "no-results text-light-mode"}
+              style={{ color: "black" }}
+            >
+              You haven&apos;t liked any videos yet!
+            </p>
+            <p style={{ color: theme ? '#aaa' : '#666', fontSize: '14px', marginTop: '10px' }}>
+              No liked videos
+            </p>
+          </div>
         </div>
       </>
     );
@@ -203,7 +211,7 @@ function LikeVideos() {
                   </div>
                 )}
                 <div className="last-like-section">
-                  <p className="like-head">Liked videos</p>
+                  <p className={theme ? "like-head" : "like-head-light"}>Liked videos</p>
                   <div className="last-like2">
                     <p className="like-username">{name}</p>
                     <p className="like-total-videos">
@@ -448,7 +456,7 @@ function LikeVideos() {
                     </div>
                   )}
                   <div className="last-like-section2">
-                    <p className="like-head">Liked videos</p>
+                    <p className={theme ? "like-head" : "like-head-light"}>Liked videos</p>
                     <div className="last-like2">
                       <p className="like-username">{name}</p>
                       <p className="like-total-videos">

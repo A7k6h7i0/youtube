@@ -9,7 +9,7 @@ import StudioLogo2 from "../img/studio2.png";
 import { useEffect, useState, useRef } from "react";
 import AccountPop2 from "./AccountPop2";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-import YouTubeIcon from "@mui/icons-material/YouTube";
+import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -20,6 +20,7 @@ import { backendURL } from "../config/backend";
 
 function Navbar2() {
   const [profilePic, setProfilePic] = useState();
+  const [hasChannel, setHasChannel] = useState(false);
   const [userVideos, setUserVideos] = useState([]);
   const [showPop, setShowPop] = useState(false);
   const [searchInput, setSearchInput] = useState();
@@ -39,7 +40,7 @@ function Navbar2() {
 
   useEffect(() => {
     const handler = (e) => {
-      if (!searchRef.current.contains(e.target)) {
+      if (!searchRef.current || !searchRef.current.contains(e.target)) {
         setSearchClicked(false);
         setSearchInput2("");
         setShowResults2(false);
@@ -50,7 +51,7 @@ function Navbar2() {
 
   useEffect(() => {
     const handler = (e) => {
-      if (!accountRef.current.contains(e.target)) {
+      if (!accountRef.current || !accountRef.current.contains(e.target)) {
         setShowPop(false);
       }
     };
@@ -90,11 +91,19 @@ function Navbar2() {
           const response = await fetch(
             `${backendURL}/getchannel/${user?.email}`
           );
-          const { userProfile } = await response.json();
-          setProfilePic(userProfile);
+          if (!response.ok) {
+            setProfilePic("");
+            setHasChannel(false);
+            return;
+          }
+          const { userProfile, hasChannel: userHasChannel } =
+            await response.json();
+          setProfilePic(userProfile || "");
+          setHasChannel(Boolean(userHasChannel));
         }
       } catch (error) {
-        // console.log(error.message);
+        setProfilePic("");
+        setHasChannel(false);
       }
     };
 
@@ -104,20 +113,26 @@ function Navbar2() {
   useEffect(() => {
     const getVideos = async () => {
       try {
-        if (user?.email) {
+        if (user?.email && hasChannel) {
           const response = await fetch(
             `${backendURL}/getuservideos/${user?.email}`
           );
+          if (!response.ok) {
+            setUserVideos([]);
+            return;
+          }
           const data = await response.json();
-          setUserVideos(data);
+          setUserVideos(Array.isArray(data) ? data : []);
+        } else {
+          setUserVideos([]);
         }
       } catch (error) {
-        // console.log(error.message);
+        setUserVideos([]);
       }
     };
 
     getVideos();
-  }, [user?.email]);
+  }, [user?.email, hasChannel]);
 
   const filteredVideos =
     userVideos?.length > 0 &&
@@ -164,7 +179,7 @@ function Navbar2() {
           <img
             src={theme ? StudioLogo : StudioLogo2}
             alt="logo"
-            className="youtubeLogo2"
+            className="vyxLogo2"
             onClick={() => {
               window.location.href = "/studio";
             }}
@@ -348,10 +363,10 @@ function Navbar2() {
                             </Tooltip>
                             <Tooltip
                               TransitionComponent={Zoom}
-                              title="View on YouTube"
+                              title="View on VYX"
                               placement="bottom"
                             >
-                              <YouTubeIcon
+                              <DiamondOutlinedIcon
                                 className={
                                   theme ? "watch-this" : "watch-this-light"
                                 }
@@ -517,10 +532,10 @@ function Navbar2() {
                             </Tooltip>
                             <Tooltip
                               TransitionComponent={Zoom}
-                              title="View on YouTube"
+                              title="View on VYX"
                               placement="bottom"
                             >
-                              <YouTubeIcon
+                              <DiamondOutlinedIcon
                                 className={
                                   theme ? "watch-this" : "watch-this-light"
                                 }
@@ -811,10 +826,10 @@ function Navbar2() {
                             </Tooltip>
                             <Tooltip
                               TransitionComponent={Zoom}
-                              title="View on YouTube"
+                              title="View on VYX"
                               placement="bottom"
                             >
-                              <YouTubeIcon
+                              <DiamondOutlinedIcon
                                 className={
                                   theme ? "watch-this" : "watch-this-light"
                                 }
@@ -982,10 +997,10 @@ function Navbar2() {
                             </Tooltip>
                             <Tooltip
                               TransitionComponent={Zoom}
-                              title="View on YouTube"
+                              title="View on VYX"
                               placement="bottom"
                             >
-                              <YouTubeIcon
+                              <DiamondOutlinedIcon
                                 className={
                                   theme ? "watch-this" : "watch-this-light"
                                 }

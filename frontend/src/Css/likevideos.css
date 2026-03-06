@@ -8,7 +8,7 @@ body {
   position: relative;
   top: 70px;
   display: flex;
-  color: white;
+  color: black;
   padding-left: 30px;
   padding-top: 20px;
   width: fit-content;
@@ -20,7 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  color: white;
+  color: black;
   padding-left: 30px;
   padding-top: 20px;
   width: 70%;
@@ -280,6 +280,11 @@ body {
   font-family: "Open Sans", sans-serif;
   max-width: 75%;
   font-weight: 700;
+  color: white;
+}
+
+.like-head-light {
+  color: black;
 }
 
 .like-username {
@@ -385,6 +390,11 @@ body {
   border-bottom: 2px solid;
   width: 80%;
   font-size: 23px;
+}
+
+.like-head2-light {
+  color: black;
+  border-bottom-color: black;
 }
 
 .two-main-btns {

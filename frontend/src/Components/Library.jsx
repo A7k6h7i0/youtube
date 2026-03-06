@@ -43,7 +43,7 @@ function Library() {
     return menu ? JSON.parse(menu) : false;
   });
   const [savedPlaylist, setSavedPlaylist] = useState([]);
-  document.title = "Library - YouTube";
+  document.title = "Library - VYX";
   const [theme, setTheme] = useState(() => {
     const Dark = localStorage.getItem("Dark");
     return Dark ? JSON.parse(Dark) : true;
@@ -230,11 +230,13 @@ function Library() {
       <>
         <Navbar />
         <LeftPanel />
-        <div className="searched-content">
-          <img src={nothing} alt="no results" className="nothing-found" />
-          <p className={theme ? "no-results" : "no-results text-light-mode"}>
-            No data found!
-          </p>
+        <div className="main-trending-section" style={{ position: 'relative', minHeight: '100vh' }}>
+          <div className="searched-content" style={{ position: 'relative', left: 'auto', top: 'auto', width: '100%', transform: 'none' }}>
+            <img src={nothing} alt="no results" className="nothing-found" />
+            <p className={theme ? "no-results" : "no-results text-light-mode"}>
+              No data found!
+            </p>
+          </div>
         </div>
       </>
     );
@@ -371,7 +373,7 @@ function Library() {
                 : "watchlater-library-videos light-mode"
             }
           >
-            {watchLaterArray &&
+            {watchLaterArray && watchLaterArray.length > 0 ? (
               watchLaterArray.map((element, index) => {
                 return (
                   <div
@@ -475,7 +477,16 @@ function Library() {
                     </div>
                   </div>
                 );
-              })}
+              })
+            ) : (
+              <div className="empty-state-message" style={{ 
+                padding: '20px', 
+                color: theme ? '#aaa' : '#666',
+                fontSize: '14px'
+              }}>
+                No videos in Watch later
+              </div>
+            )}
           </div>
         </div>
 
@@ -850,6 +861,16 @@ function Library() {
                     </div>
                   );
                 })}
+            {((!PlaylistArray || PlaylistArray.length === 0 || PlaylistArray === "No playlists available...") && (!savedPlaylist || savedPlaylist.length === 0)) && (
+              <div className="empty-state-message" style={{ 
+                padding: '20px', 
+                color: theme ? '#aaa' : '#666',
+                fontSize: '14px',
+                marginTop: '20px'
+              }}>
+                No playlists found
+              </div>
+            )}
           </div>
         </div>
         <hr
@@ -1059,6 +1080,16 @@ function Library() {
                   </div>
                 );
               })}
+            {(!LikedVideosArray || LikedVideosArray.length === 0) && (
+              <div className="empty-state-message" style={{ 
+                padding: '20px', 
+                color: theme ? '#aaa' : '#666',
+                fontSize: '14px',
+                marginTop: '20px'
+              }}>
+                No liked videos
+              </div>
+            )}
           </div>
         </div>
       </div>

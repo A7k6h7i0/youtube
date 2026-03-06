@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../Css/leftpanel3.css";
 import { useLocation, useParams } from "react-router-dom";
 import WestIcon from "@mui/icons-material/West";
-import YouTubeIcon from "@mui/icons-material/YouTube";
+import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
@@ -181,10 +181,10 @@ function LeftPanel2() {
             </p>
             <Tooltip
               TransitionComponent={Zoom}
-              title="View on YouTube"
+              title="View on VYX"
               placement="bottom"
             >
-              <YouTubeIcon
+              <DiamondOutlinedIcon
                 className="watch-video"
                 fontSize="large"
                 style={{ color: "white" }}
@@ -334,10 +334,10 @@ function LeftPanel2() {
             />
             <Tooltip
               TransitionComponent={Zoom}
-              title="View on YouTube"
+              title="View on VYX"
               placement="bottom"
             >
-              <YouTubeIcon
+              <DiamondOutlinedIcon
                 className="watch-video2"
                 fontSize="medium"
                 style={{ color: "white" }}
@@ -467,10 +467,10 @@ function LeftPanel2() {
             />
             <Tooltip
               TransitionComponent={Zoom}
-              title="View on YouTube"
+              title="View on VYX"
               placement="bottom"
             >
-              <YouTubeIcon
+              <DiamondOutlinedIcon
                 className="watch-video2"
                 fontSize="medium"
                 style={{ color: "white" }}

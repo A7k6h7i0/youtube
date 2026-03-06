@@ -260,7 +260,7 @@ function Basic() {
             }
           >
             Choose a channel name that represents you and your content. Changes
-            made to your name and picture are visible only on YouTube.
+            made to your name and picture are visible only on VYX.
           </p>
           {channelName === undefined ? (
             <input

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-import YouTubeIcon from "@mui/icons-material/YouTube";
+import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import NorthOutlinedIcon from "@mui/icons-material/NorthOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
@@ -47,7 +47,7 @@ function Content() {
   const User = useSelector((state) => state.user.user);
   const { user } = User;
 
-  document.title = "Channel content - YouTube Studio";
+  document.title = "Channel content - Vyx Studio";
 
   //TOASTS
 
@@ -491,10 +491,10 @@ function Content() {
                             </Tooltip>
                             <Tooltip
                               TransitionComponent={Zoom}
-                              title="View on YouTube"
+                              title="View on VYX"
                               placement="bottom"
                             >
-                              <YouTubeIcon
+                              <DiamondOutlinedIcon
                                 className={
                                   theme
                                     ? "video-edit-icons"
@@ -799,7 +799,7 @@ function Content() {
             }
           />
           <p>
-            I understand that deleting a video from YouTube is permanent and
+            I understand that deleting a video from VYX is permanent and
             cannot be undone.
           </p>
         </div>

@@ -56,7 +56,7 @@ function SearchResults() {
     }, 2500);
   }, []);
 
-  document.title = data && data !== undefined ? `${data} - YouTube` : "YouTube";
+  document.title = data && data !== undefined ? `${data} - VYX` : "VYX";
 
   useEffect(() => {
     if (theme === false && !window.location.href.includes("/studio")) {

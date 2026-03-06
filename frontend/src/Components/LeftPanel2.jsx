@@ -182,7 +182,7 @@ function LeftPanel2() {
         >
           <Tooltip
             TransitionComponent={Zoom}
-            title="View channel on YouTube"
+            title="View channel on VYX"
             placement="top"
           >
             <img
@@ -390,7 +390,7 @@ function LeftPanel2() {
         >
           <Tooltip
             TransitionComponent={Zoom}
-            title="View channel on YouTube"
+            title="View channel on VYX"
             placement="top"
           >
             <img
@@ -553,19 +553,21 @@ function LeftPanel2() {
               title="Monetization"
               placement="bottom"
             >
-              <MdMonetizationOn
-                className={
-                  StudioSection === "Monetization"
-                    ? "studio-icon2"
-                    : "studio-icon"
-                }
-                fontSize="medium"
-                style={{
-                  color: "#A9A9A9",
-                  paddingTop: "16px",
-                  paddingBottom: "16px",
-                }}
-              />
+              <span className="tooltip-ref-wrap">
+                <MdMonetizationOn
+                  className={
+                    StudioSection === "Monetization"
+                      ? "studio-icon2"
+                      : "studio-icon"
+                  }
+                  fontSize="medium"
+                  style={{
+                    color: "#A9A9A9",
+                    paddingTop: "16px",
+                    paddingBottom: "16px",
+                  }}
+                />
+              </span>
             </Tooltip>
           </div>
         </div>
@@ -608,7 +610,7 @@ function LeftPanel2() {
         >
           <Tooltip
             TransitionComponent={Zoom}
-            title="View channel on YouTube"
+            title="View channel on VYX"
             placement="top"
           >
             <img
@@ -766,24 +768,26 @@ function LeftPanel2() {
               window.location.href = "/studio/monetization";
             }}
           >
-            <Tooltip
+          <Tooltip
               TransitionComponent={Zoom}
               title="Monetization"
               placement="bottom"
             >
-              <MdMonetizationOn
-                className={
-                  StudioSection === "Monetization"
-                    ? "studio-icon2"
-                    : "studio-icon"
-                }
-                fontSize="medium"
-                style={{
-                  color: "#A9A9A9",
-                  paddingTop: "16px",
-                  paddingBottom: "16px",
-                }}
-              />
+              <span className="tooltip-ref-wrap">
+                <MdMonetizationOn
+                  className={
+                    StudioSection === "Monetization"
+                      ? "studio-icon2"
+                      : "studio-icon"
+                  }
+                  fontSize="medium"
+                  style={{
+                    color: "#A9A9A9",
+                    paddingTop: "16px",
+                    paddingBottom: "16px",
+                  }}
+                />
+              </span>
             </Tooltip>
           </div>
         </div>
@@ -810,17 +814,19 @@ function LeftPanel2() {
             title="Dashboard"
             placement="bottom"
           >
-            <MdDashboard
-              className={
-                StudioSection === "Dashboard"
-                  ? "studio-icon3"
-                  : "studio-icon-new"
-              }
-              fontSize="26px"
-              style={{
-                color: "#A9A9A9",
-              }}
-            />
+            <span className="tooltip-ref-wrap">
+              <MdDashboard
+                className={
+                  StudioSection === "Dashboard"
+                    ? "studio-icon3"
+                    : "studio-icon-new"
+                }
+                fontSize="26px"
+                style={{
+                  color: "#A9A9A9",
+                }}
+              />
+            </span>
           </Tooltip>
         </div>
         <div
@@ -835,15 +841,19 @@ function LeftPanel2() {
             title="Content"
             placement="bottom"
           >
-            <MdOutlineVideoLibrary
-              className={
-                StudioSection === "Content" ? "studio-icon3" : "studio-icon-new"
-              }
-              fontSize="26px"
-              style={{
-                color: "#A9A9A9",
-              }}
-            />
+            <span className="tooltip-ref-wrap">
+              <MdOutlineVideoLibrary
+                className={
+                  StudioSection === "Content"
+                    ? "studio-icon3"
+                    : "studio-icon-new"
+                }
+                fontSize="26px"
+                style={{
+                  color: "#A9A9A9",
+                }}
+              />
+            </span>
           </Tooltip>
         </div>
         <div
@@ -858,17 +868,19 @@ function LeftPanel2() {
             title="Comments"
             placement="bottom"
           >
-            <BiCommentDetail
-              className={
-                StudioSection === "Comments"
-                  ? "studio-icon3"
-                  : "studio-icon-new"
-              }
-              fontSize="26px"
-              style={{
-                color: "#A9A9A9",
-              }}
-            />
+            <span className="tooltip-ref-wrap">
+              <BiCommentDetail
+                className={
+                  StudioSection === "Comments"
+                    ? "studio-icon3"
+                    : "studio-icon-new"
+                }
+                fontSize="26px"
+                style={{
+                  color: "#A9A9A9",
+                }}
+              />
+            </span>
           </Tooltip>
         </div>
         <div
@@ -883,17 +895,19 @@ function LeftPanel2() {
             title="Customization"
             placement="bottom"
           >
-            <MdOutlineAutoFixHigh
-              className={
-                StudioSection === "Customization"
-                  ? "studio-icon3"
-                  : "studio-icon-new"
-              }
-              fontSize="26px"
-              style={{
-                color: "#A9A9A9",
-              }}
-            />
+            <span className="tooltip-ref-wrap">
+              <MdOutlineAutoFixHigh
+                className={
+                  StudioSection === "Customization"
+                    ? "studio-icon3"
+                    : "studio-icon-new"
+                }
+                fontSize="26px"
+                style={{
+                  color: "#A9A9A9",
+                }}
+              />
+            </span>
           </Tooltip>
         </div>
         <div
@@ -908,17 +922,19 @@ function LeftPanel2() {
             title="Monetization"
             placement="bottom"
           >
-            <MdMonetizationOn
-              className={
-                StudioSection === "Monetization"
-                  ? "studio-icon3"
-                  : "studio-icon-new"
-              }
-              fontSize="26px"
-              style={{
-                color: "#A9A9A9",
-              }}
-            />
+            <span className="tooltip-ref-wrap">
+              <MdMonetizationOn
+                className={
+                  StudioSection === "Monetization"
+                    ? "studio-icon3"
+                    : "studio-icon-new"
+                }
+                fontSize="26px"
+                style={{
+                  color: "#A9A9A9",
+                }}
+              />
+            </span>
           </Tooltip>
         </div>
       </div>

@@ -6,8 +6,8 @@ import AccountPop from "./AccountPop";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import "../Css/navbar.css";
-import Logo from "../img/logo1.png";
-import Logo2 from "../img/logo2.png";
+import Logo from "../img/vyx-logo.svg";
+// import Logo2 from "../img/logo2.png";
 import { useEffect, useState, useRef } from "react";
 import Signup from "./Signup";
 import Signin from "./Signin";
@@ -102,6 +102,11 @@ function Navbar() {
     }
   };
 
+  const goToSearchPage = () => {
+    const query = (searchedData || data2 || "latest").trim();
+    window.location.href = `/results/${encodeURIComponent(query)}`;
+  };
+
   return (
     <>
       <div className={theme === true ? "navbar" : "navbar light-mode"}>
@@ -112,10 +117,10 @@ function Navbar() {
             style={{ color: theme ? "white" : "black" }}
           />
           <img
-            src={theme ? Logo : Logo2}
+            src={Logo}
             alt="logo"
             loading="lazy"
-            className="youtubeLogo"
+            className="vyxLogo"
             onClick={() => {
               window.location.href = "/";
             }}
@@ -152,7 +157,7 @@ function Navbar() {
           />
           <Tooltip
             TransitionComponent={Zoom}
-            title="YouTube studio"
+            title="VYX Studio"
             placement="bottom"
           >
             <button
@@ -171,7 +176,7 @@ function Navbar() {
               }
             >
               <AiOutlineVideoCameraAdd fontSize="20px" />
-              <p>Studio</p>
+              <p>VYX Studio</p>
             </button>
           </Tooltip>
 
@@ -183,7 +188,7 @@ function Navbar() {
               fontSize="medium"
               style={{ color: "#FFD700" }}
             />
-            <p>Premium</p>
+            <p>VYX Premium</p>
           </button>
           <button
             onClick={() => {
@@ -192,7 +197,7 @@ function Navbar() {
               setisSwitched(true); // Start with signin form
               document.body.classList.add("bg-css");
             }}
-            className={theme ? "signin nav-auth-btn" : "signin signin-light nav-auth-btn"}
+            className={theme ? `signin nav-auth-btn ${User.success ? 'logged-in' : ''}` : `signin signin-light nav-auth-btn ${User.success ? 'logged-in' : ''}`}
             style={User.success ? { display: "none" } : { display: "flex" }}
           >
             <AccountCircleOutlinedIcon
@@ -328,7 +333,12 @@ function Navbar() {
             display: newSearch && window.innerWidth <= 940 ? "flex" : "none",
           }}
         >
-          <FiSearch fontSize="28px" color="#aaa" />
+          <FiSearch
+            fontSize="28px"
+            color="#aaa"
+            style={{ cursor: "pointer" }}
+            onClick={goToSearchPage}
+          />
           <input
             type="text"
             name="search-content"

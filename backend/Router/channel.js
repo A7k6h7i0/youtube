@@ -217,9 +217,7 @@ Channel.get("/getuservideos/:email", async (req, res) => {
     const email = req.params.email;
     const videos = await videodata.findOne({ email });
     if (!videos) {
-      return res.status(404).json({
-        message: "USER DOESN'T EXIST",
-      });
+      return res.status(200).json([]);
     }
 
     const myvideos = videos.VideoData;

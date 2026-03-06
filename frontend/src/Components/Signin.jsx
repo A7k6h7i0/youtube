@@ -122,8 +122,8 @@ function Signin(prop) {
       >
         <p className="signup-head">Login to Your Account</p>
         <p className="signup-desc">
-          Stay Connected-Stay Entertained, Step into the World of YouTube, Join
-          the YouTube Community
+          Stay Connected-Stay Entertained, Step into the World of VYX, Join
+          the VYX Community
         </p>
       </div>
       <div

@@ -98,8 +98,8 @@ function OtherChannel() {
 
   document.title =
     channelName && channelName !== undefined
-      ? `${channelName} - YouTube`
-      : "YouTube";
+      ? `${channelName} - VYX`
+      : "VYX";
 
   useEffect(() => {
     const getChannelCover = async () => {

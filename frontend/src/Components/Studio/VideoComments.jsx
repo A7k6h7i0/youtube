@@ -34,7 +34,7 @@ function VideoComments() {
   });
   const User = useSelector((state) => state.user.user);
   const { user } = User;
-  document.title = "Video comments - YouTube Studio";
+  document.title = "Video comments - Vyx Studio";
 
   useEffect(() => {
     const handleMenuButtonClick = () => {

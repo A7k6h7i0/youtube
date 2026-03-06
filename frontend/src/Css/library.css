@@ -4,7 +4,7 @@
   position: absolute;
   width: -webkit-fill-available;
   top: 100px;
-  color: white;
+  color: black;
   padding-right: 55px;
 }
 
@@ -21,6 +21,25 @@
 .top-watchlater-library > p:nth-child(3) {
   margin-left: 15px;
   color: #aaa;
+}
+
+/* Light mode heading colors */
+.top-watch-left,
+.top-like-lefttt,
+.playlistt-left {
+  color: black;
+}
+
+.light-mode .top-watch-left,
+.light-mode .top-like-lefttt,
+.light-mode .playlistt-left {
+  color: black !important;
+}
+
+.light-mode .top-watch-left p,
+.light-mode .top-like-lefttt p,
+.light-mode .playlistt-left p {
+  color: black !important;
 }
 
 .topplaylist-section > p {

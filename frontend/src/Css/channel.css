@@ -294,7 +294,8 @@
 .my-all-videos-list,
 .my-all-videos-list2 {
   display: flex;
-  overflow: scroll;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .uploadedvideo-alldata {
@@ -1570,7 +1571,8 @@
     height: 58px;
   }
   .channel-mid-content {
-    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
     top: 105px;
   }
   .seperate-new {

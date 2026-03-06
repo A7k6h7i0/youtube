@@ -47,7 +47,7 @@ function VideoDetails() {
   });
   const optionRef = useRef();
 
-  document.title = "Video details - YouTube Studio";
+  document.title = "Video details - Vyx Studio";
 
   //TOASTS
 
@@ -640,7 +640,7 @@ function VideoDetails() {
                 height="220"
                 className="playable-videoedit"
                 src={videodata && videodata.videoURL}
-                title="YouTube video player"
+                title="VYX video player"
                 frameBorder="0"
                 allowFullScreen
               ></iframe>
