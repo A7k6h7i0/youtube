@@ -119,7 +119,7 @@
 
 .channel-name {
   margin: 0;
-  color: inherit;
+  color: #000000 !important;
   font-size: 17px;
   font-weight: 600;
   cursor: pointer;
@@ -128,6 +128,10 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.main-video-section.light-mode .channel-name {
+  color: #000000 !important;
 }
 
 .channel-subs {
@@ -1121,6 +1125,16 @@
   }
   .download-icon {
     font-size: 16px;
+  }
+  .subscribe,
+  .subscribe-light,
+  .subscribe2,
+  .subscribe2-light {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
   }
   .comments-section {
     margin-bottom: 220px;

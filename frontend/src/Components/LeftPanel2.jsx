@@ -215,7 +215,7 @@ function LeftPanel2() {
           <CiShare1 className="view-channel2" fontSize="25px" color="white" />
           <div className="about-channel">
             <p className="your-channel">Your Channel</p>
-            <p className={theme ? "c-name" : "c-name text-light-mode2"}>
+            <p className={theme ? "c-name" : "c-name text-light-mode"}>
               {channel}
             </p>
           </div>

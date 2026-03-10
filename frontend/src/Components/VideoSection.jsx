@@ -174,6 +174,25 @@ function VideoSection() {
   }, []);
 
   useEffect(() => {
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousBodyOverflowY = document.body.style.overflowY;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousHtmlOverflowY = document.documentElement.style.overflowY;
+
+    document.body.style.overflow = "auto";
+    document.body.style.overflowY = "auto";
+    document.documentElement.style.overflow = "auto";
+    document.documentElement.style.overflowY = "auto";
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow || "";
+      document.body.style.overflowY = previousBodyOverflowY || "";
+      document.documentElement.style.overflow = previousHtmlOverflow || "";
+      document.documentElement.style.overflowY = previousHtmlOverflowY || "";
+    };
+  }, []);
+
+  useEffect(() => {
     if (theme === false && !window.location.href.includes("/studio")) {
       document.body.style.backgroundColor = "white";
     } else if (theme === true && !window.location.href.includes("/studio")) {
@@ -1132,7 +1151,7 @@ function VideoSection() {
               <div className="channel-data2">
                 <div className="creator">
                   <p
-                    className="channel-name"
+                    className={theme ? "channel-name" : "channel-name text-light-mode"}
                     onClick={() => {
                       if (channelID !== undefined) {
                         window.location.href = `/channel/${channelID}`;
