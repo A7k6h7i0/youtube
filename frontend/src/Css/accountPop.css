@@ -91,6 +91,7 @@
 
 .c-sec2:hover {
   background-color: #f0f0f0;
+  color: black;
 }
 
 .c-sec2 > p {
@@ -153,6 +154,7 @@
 .dark-theme2:hover,
 .light-theme2:hover {
   background-color: #f0f0f0;
+  color: black;
 }
 
 .dark-theme2 > p,
@@ -180,4 +182,5 @@
 
 .back-arroww2:hover {
   background-color: #f0f0f0;
+  color: black;
 }

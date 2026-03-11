@@ -34,12 +34,30 @@
   height: auto;
   display: flex;
   animation: FADEINN 1s ease;
+  overflow: visible;
 }
 
 .main-video-section2 {
   background-color: #0f0f0f;
+  height: auto;
+  overflow: visible;
 }
 
+/* Remove inner scrollbar on video page (desktop left panel/secondary panel) */
+.video-page .main-left-section,
+.video-page .secondary-panel {
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+}
+
+/* Prevent html/body dual scrollbars on video page */
+html.video-page {
+  overflow: hidden;
+}
+
+body.video-page {
+  overflow-y: auto;
+}
 .left-video-section2 {
   padding-top: 90px;
   padding-left: 100px;
@@ -81,6 +99,11 @@
   color: white;
 }
 
+.videos-desc {
+  color: white;
+  font-size: 14px;
+}
+
 .videos-desc > a {
   color: #3eaffe;
   text-decoration: none;
@@ -88,7 +111,7 @@
 
 .vid-title {
   margin-top: 25px;
-  color: white;
+  color: #000000;
   font-size: 22px;
 }
 
@@ -136,8 +159,24 @@
 
 .channel-subs {
   font-size: 14px;
-  color: #7d94aa;
+  color: white;
   margin-top: 5px;
+}
+
+.main-video-section.light-mode .channel-left-data,
+.main-video-section.light-mode .channel-subs {
+  color: #000000 !important;
+}
+
+.light-mode .channel-left-data,
+.light-mode .channel-name,
+.light-mode .channel-subs {
+  color: #000000 !important;
+}
+
+.dark-mode .vid-title,
+.dark-mode .channel-name {
+  color: #ffffff !important;
 }
 
 .subscribe {
@@ -147,6 +186,7 @@
   padding-right: 22px;
   border: none;
   background-color: white;
+  color: black;
   font-size: 15px;
   margin-left: 25px;
   transition: all 0.1s ease;
@@ -180,6 +220,7 @@
 
 .subscribe2-light {
   background-color: #f0f0f0;
+  color: black;
 }
 
 .vl {
@@ -229,6 +270,7 @@
   background-color: #f0f0f0;
   padding: 8px;
   transition: all 0.15s ease;
+  color: black;
 }
 
 .like-data,
@@ -284,6 +326,7 @@
   border-radius: 25px;
   margin-left: 20px;
   transition: all 0.15s ease;
+  color: black;
 }
 
 .download-btn {
@@ -311,6 +354,7 @@
   border-radius: 25px;
   margin-left: 20px;
   transition: all 0.15s ease;
+  color: black;
 }
 
 .save-later {
@@ -338,6 +382,7 @@
   border-radius: 25px;
   margin-left: 20px;
   transition: all 0.15s ease;
+  color: black;
 }
 
 .add-playlist {
@@ -365,6 +410,7 @@
   border-radius: 25px;
   margin-left: 20px;
   transition: all 0.15s ease;
+  color: black;
 }
 
 .like-data:hover,
@@ -388,6 +434,7 @@
 .views-date {
   display: flex;
   align-items: center;
+  color: white;
 }
 
 .description-section2 {
@@ -403,6 +450,7 @@
 .description-section2-light {
   margin-top: 20px;
   background-color: #f0f0f0;
+  color: black;
   width: 98%;
   padding: 15px;
   border-radius: 10px;
@@ -418,7 +466,7 @@
 }
 
 .total-comments {
-  color: white;
+  color: #000000 !important;
   display: flex;
   align-items: center;
 }
@@ -449,6 +497,21 @@
 
 .comment-input::placeholder {
   font-size: 16px;
+  color: white;
+}
+
+/* Ensure comment text is visible in light mode */
+.comments-section .total-comments.text-light-mode,
+.comments-section .comment-input.text-light-mode,
+.comments-section .comment-input.text-light-mode::placeholder,
+.comments-section .comment-right-data.text-light-mode,
+.comments-section .comment-right-data.text-light-mode p,
+.comments-section .comment-right-data.text-light-mode .comment-row1 > p,
+.comments-section .comment-right-data.text-light-mode .comment-time,
+.comments-section .comment-right-data.text-light-mode .main-comment,
+.comments-section .comment-right-data.text-light-mode .comment-interaction > p,
+.comments-section .comment-right-data.text-light-mode .like-count {
+  color: #000 !important;
 }
 
 /* RECOMMEND SECTION  */
@@ -512,6 +575,12 @@
   align-items: center;
 }
 
+/* Ensure recommended video titles stay readable in light mode */
+.main-video-section.light-mode .recommend-vid-title,
+.recommend-vid-title.text-light-mode {
+  color: #000 !important;
+}
+
 .upload-comment {
   cursor: pointer;
   border-radius: 20px;
@@ -521,6 +590,7 @@
   padding-bottom: 10px;
   border: none;
   background-color: white;
+  color: black;
   font-size: 15px;
   margin-left: 25px;
   transition: all 0.1s ease;
@@ -550,6 +620,7 @@
   padding-bottom: 8px;
   border: none;
   background-color: white;
+  color: black;
   font-size: 14px;
   margin-left: 17px;
   transition: all 0.1s ease;
@@ -593,14 +664,24 @@
 
 .cancel-comment {
   cursor: pointer;
-  background-color: #0f0f0f00;
-  color: white;
+  border-radius: 20px;
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border: none;
+  background-color: #f0f0f0;
+  color: #000;
+  font-size: 15px;
+  margin-left: 10px;
 }
 .comment-btns {
   position: relative;
   float: right;
   margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .commentDP {
@@ -621,26 +702,70 @@
   display: flex;
   margin-bottom: 45px;
 }
+
+.main-video-section.light-mode .comment-data,
+.main-video-section.light-mode .main-comment {
+  color: #000;
+}
+
+.main-video-section.light-mode .comment-right-data,
+.main-video-section.light-mode .comment-row1 > p,
+.main-video-section.light-mode .comment-interaction > p,
+.main-video-section.light-mode .main-comment {
+  color: #000 !important;
+}
+
+.main-video-section.light-mode .total-comments,
+.main-video-section.light-mode .comment-data,
+.main-video-section.light-mode .comment-right-data,
+.main-video-section.light-mode .comment-row1 > p,
+.main-video-section.light-mode .comment-time,
+.main-video-section.light-mode .main-comment,
+.main-video-section.light-mode .comment-interaction > p,
+.main-video-section.light-mode .comment-input {
+  color: #000 !important;
+}
+
+.main-video-section.light-mode .comment-input::placeholder {
+  color: #000 !important;
+}
+
+.comments-section ::selection,
+.comment-data ::selection,
+.main-comment::selection,
+.comment-row1 ::selection {
+  color: #000;
+}
 .comment-right-data {
   margin-left: 20px;
+  color: white;
 }
 .comment-row1 {
   display: flex;
   align-items: center;
+  color: #000000 !important;
+}
+.comment-row1 > p {
+  color: #000000 !important;
 }
 .comment-time {
   margin-left: 8px;
-  color: gray;
+  color: #000000 !important;
 }
 
 .main-comment {
   margin-top: 6px;
+  color: #000000 !important;
 }
 
 .comment-interaction {
   margin-top: 12px;
   display: flex;
   align-items: center;
+  color: white;
+}
+.comment-interaction > p {
+  color: white;
 }
 
 .like-data,
@@ -667,13 +792,14 @@
   position: fixed;
   left: 50%;
   top: 50%;
-  z-index: 10;
+  z-index: 1991;
   transform: translate(-50%, -50%);
   width: 270px;
   padding: 15px;
   border-radius: 8px;
   min-height: 200px;
   animation: fadeUp 0.25s ease forwards;
+  box-sizing: border-box;
 }
 
 .this-top-section {
@@ -707,7 +833,11 @@
 .create-playlist-section {
   position: absolute;
   bottom: 18px;
-  width: inherit;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 0 8px;
+  box-sizing: border-box;
 }
 
 .playlist-name {
@@ -718,7 +848,8 @@
   border-bottom: 1px solid white;
   margin-top: 4px;
   font-size: 16px;
-  width: -webkit-fill-available;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .playlist-name::placeholder {
@@ -789,7 +920,8 @@
   padding-right: 15px;
   margin-top: 25px;
   position: relative;
-  float: right;
+  margin-left: auto;
+  width: fit-content;
   transition: all 0.1s ease;
 }
 
@@ -831,8 +963,18 @@
 
 .this-middle-section2 {
   margin-top: 25px;
-  overflow: scroll;
+  overflow-y: auto;
   height: 150px;
+}
+
+/* Hide inner scrollbar while keeping scroll behavior */
+.this-middle-section2 {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.this-middle-section2::-webkit-scrollbar {
+  display: none;
 }
 
 .show-playlists {
@@ -966,6 +1108,7 @@
   font-size: 14.8px;
   position: relative;
   margin-top: 10px;
+  color: white;
 }
 
 .second-one {
@@ -1430,5 +1573,90 @@
 @media (width<= 370px) {
   .description-section2, .description-section2-light{
     width: 92% !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-video-section {
+    flex-wrap: wrap;
+  }
+  .left-video-section2 {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+  }
+  .plyr,
+  .videoframe {
+    max-width: 100%;
+    height: auto;
+  }
+  .recommended-section {
+    position: static;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+  }
+  .video-data12,
+  .video-right-side {
+    width: 100%;
+    max-width: 100%;
+  }
+  .some-channel-data,
+  .channel-right-data {
+    flex-wrap: wrap;
+  }
+  .recommend-thumbnails {
+    max-width: 100%;
+    height: auto;
+  }
+  .description-section2,
+  .description-section2-light {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 768px) {
+  .left-video-section2 {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 72px;
+  }
+  .channel-left-data,
+  .comment-data,
+  .my-comment-area,
+  .video-data123 {
+    flex-wrap: wrap;
+  }
+  .video-data12 {
+    flex-direction: column;
+  }
+  .video-right-side {
+    margin-left: 0;
+  }
+  .share,
+  .download-btn,
+  .save-later,
+  .add-playlist,
+  .like-dislike {
+    max-width: 100%;
+  }
+  .comment-input {
+    max-width: 100%;
+  }
+  .recommended-section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .recommend-thumbnails {
+    width: 100%;
+    max-width: 100%;
   }
 }

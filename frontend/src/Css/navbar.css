@@ -1476,3 +1476,144 @@ form>input::placeholder {
     width: 90.6vw !important;
   }
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    height: auto;
+    overflow-x: hidden;
+  }
+
+  .right-bar {
+    max-width: 100%;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    row-gap: 6px;
+  }
+
+  .nav-studio-btn,
+  .nav-premium-btn,
+  .nav-auth-btn,
+  .signin {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .navbar {
+    overflow-x: hidden;
+  }
+
+  .right-bar {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    row-gap: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow: hidden;
+    padding-right: 4px;
+    justify-content: space-between;
+  }
+
+  .left-bar {
+    flex-shrink: 0;
+    margin-right: auto;
+  }
+
+  .right-bar {
+    flex: 0 0 auto;
+    min-width: 0;
+    justify-content: flex-end;
+    gap: 4px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-left: auto;
+    padding-right: 0;
+  }
+
+  .right-bar button {
+    padding: 4px 6px !important;
+    font-size: 10px;
+  }
+
+  .nav-premium-btn {
+    padding: 5px 7px !important;
+  }
+
+  .nav-studio-btn p,
+  .nav-premium-btn p,
+  .nav-auth-btn p,
+  .signin > p {
+    font-size: 10px !important;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .second-search {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    padding: 6px;
+  }
+
+  .signin {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav-studio-btn p,
+  .nav-premium-btn p,
+  .nav-auth-btn p,
+  .signin > p {
+    max-width: 70px;
+  }
+}
+
+@media (max-width: 380px) {
+  .navbar {
+    padding: 6px 4px;
+    gap: 4px;
+  }
+
+  .vyxLogo {
+    height: 28px !important;
+  }
+
+  .right-bar button {
+    padding: 4px 5px !important;
+    font-size: 9px;
+  }
+
+  .nav-premium-btn {
+    padding: 5px 6px !important;
+  }
+
+  .nav-studio-btn p,
+  .nav-premium-btn p {
+    display: none !important;
+  }
+
+  .nav-auth-btn p,
+  .signin > p {
+    display: none !important;
+  }
+
+  .second-search {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    padding: 5px;
+  }
+}
+
+.nav-premium-btn {
+  padding: 9px 13px;
+}

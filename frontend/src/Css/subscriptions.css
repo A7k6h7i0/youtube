@@ -46,6 +46,7 @@
 
 .sub-channels2:hover {
   background-color: #f0f0f0;
+  color: black;
 }
 
 .all-subs-dataaa {
@@ -53,8 +54,12 @@
   left: 300px;
   width: 85%;
   top: 100px;
-  color: black;
+  color: white;
   padding-bottom: 60px;
+}
+
+.light-mode .all-subs-dataaa {
+  color: black !important;
 }
 
 .sub-channelname {

@@ -4,7 +4,7 @@
   position: absolute;
   width: -webkit-fill-available;
   top: 100px;
-  color: black;
+  color: white;
   padding-right: 55px;
 }
 
@@ -33,6 +33,10 @@
 .light-mode .top-watch-left,
 .light-mode .top-like-lefttt,
 .light-mode .playlistt-left {
+  color: black !important;
+}
+
+.light-mode .library-section {
   color: black !important;
 }
 

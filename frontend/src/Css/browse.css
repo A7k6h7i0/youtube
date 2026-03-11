@@ -251,6 +251,19 @@
   margin: 10px 60px 60px 60px;
 }
 
+.browse.light-mode .video-section,
+.browse.light-mode .title,
+.browse.light-mode .browse-video-title {
+  color: #000000;
+}
+
+.browse-data.light-mode .title,
+.browse-data2.light-mode .title,
+.browse-data.light-mode .browse-video-title,
+.browse-data2.light-mode .browse-video-title {
+  color: #000000 !important;
+}
+
 .video-data {
   cursor: pointer;
   width: 100%;
@@ -853,4 +866,14 @@
   .video-section {
     margin-left: 4px !important;
   }
+}
+
+/* Force title contrast in light mode (override any inherited white text) */
+.browse.light-mode .video-section .title,
+.browse.light-mode .video-section .browse-video-title,
+.browse-data.light-mode .video-section .title,
+.browse-data2.light-mode .video-section .title,
+.browse-data.light-mode .video-section .browse-video-title,
+.browse-data2.light-mode .video-section .browse-video-title {
+  color: #000000 !important;
 }

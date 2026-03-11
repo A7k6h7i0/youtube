@@ -8,7 +8,7 @@ body {
   position: relative;
   top: 70px;
   display: flex;
-  color: black;
+  color: white;
   padding-left: 30px;
   padding-top: 20px;
   width: fit-content;
@@ -20,7 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  color: black;
+  color: white;
   padding-left: 30px;
   padding-top: 20px;
   width: 70%;
@@ -227,6 +227,10 @@ body {
   padding: 10px;
 }
 
+.liked-all-videos-light {
+  color: black;
+}
+
 .liked-all-videos:hover {
   cursor: pointer;
   background-color: #272727;
@@ -237,6 +241,7 @@ body {
   cursor: pointer;
   background-color: #f0f0f0;
   border-radius: 10px;
+  color: black;
 }
 
 .liked-videos-all-data {
@@ -454,6 +459,7 @@ body {
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   animation: fadeeinn 0.2s ease;
+  color: white;
 }
 
 @keyframes fadeeinn {

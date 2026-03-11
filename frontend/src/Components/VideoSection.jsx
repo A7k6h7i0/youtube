@@ -181,14 +181,19 @@ function VideoSection() {
 
     document.body.style.overflow = "auto";
     document.body.style.overflowY = "auto";
-    document.documentElement.style.overflow = "auto";
-    document.documentElement.style.overflowY = "auto";
+    // Prevent dual scrollbars by keeping html locked while body scrolls.
+    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.overflowY = "hidden";
+    document.body.classList.add("video-page");
+    document.documentElement.classList.add("video-page");
 
     return () => {
       document.body.style.overflow = previousBodyOverflow || "";
       document.body.style.overflowY = previousBodyOverflowY || "";
       document.documentElement.style.overflow = previousHtmlOverflow || "";
       document.documentElement.style.overflowY = previousHtmlOverflowY || "";
+      document.body.classList.remove("video-page");
+      document.documentElement.classList.remove("video-page");
     };
   }, []);
 
